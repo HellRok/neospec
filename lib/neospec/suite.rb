@@ -1,6 +1,6 @@
 class Neospec
   class Suite
-    attr_reader :specs
+    attr_accessor :specs
 
     def initialize
       @specs = []
