@@ -3,11 +3,8 @@ $neospec.describe "Neospec::Runner::Basic#initialize" do
     @runner = Neospec::Runner::Basic.new(config: Neospec::Config.new)
   end
 
-  Expect "@config to be set" do
-    @runner.config.is_a?(Neospec::Config)
-  end
-
-  Expect "@results to be set" do
-    @runner.results.is_a?(Neospec::Results)
+  Then "instance variables are set" do
+    expect(@runner.config).to_be_a(Neospec::Config)
+    expect(@runner.results).to_be_a(Neospec::Results)
   end
 end

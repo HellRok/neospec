@@ -1,9 +1,11 @@
 require "neospec/config"
+require "neospec/expector"
 require "neospec/logger/basic"
 require "neospec/results"
 require "neospec/runner/basic"
 require "neospec/spec"
 require "neospec/spec/result"
+require "neospec/spec/result/failure"
 require "neospec/suite"
 
 class Neospec

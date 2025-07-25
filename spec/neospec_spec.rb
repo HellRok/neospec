@@ -3,15 +3,9 @@ $neospec.describe "Neospec#initialize" do
     @neospec = Neospec.new
   end
 
-  Expect "@config to be set" do
-    @neospec.config.is_a?(Neospec::Config)
-  end
-
-  Expect "@suite to be set" do
-    @neospec.suite.is_a?(Neospec::Suite)
-  end
-
-  Expect "@results to be set" do
-    @neospec.results.is_a?(Neospec::Results)
+  Then "instance variables are set" do
+    expect(@neospec.config).to_be_a(Neospec::Config)
+    expect(@neospec.suite).to_be_a(Neospec::Suite)
+    expect(@neospec.results).to_be_a(Neospec::Results)
   end
 end

@@ -8,10 +8,10 @@ class Neospec
         case context
         when :describe
           puts message
-        when :Expect
-          puts " #{result ? "✓" : "✗"} #{context} #{message}"
+        when :expect
+          puts "    #{result ? "✓" : "✗"} #{context} #{message}"
         else
-          puts "   #{context} #{message}"
+          puts "  #{context} #{message}"
         end
       end
     end

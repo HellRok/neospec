@@ -28,13 +28,13 @@ class Neospec
       end
     end
 
-    def Expect(description, &block)
-      block_succeeded = !!block.call
-
-      @result.expectations += 1
-      @result.failures << caller[0] unless block_succeeded
-
-      log(description, context: :Expect, result: block_succeeded)
+    def expect(value)
+      Neospec::Expector.new(
+        result: @result,
+        actual: value,
+        stack: caller,
+        logger: logger
+      )
     end
   end
 end

@@ -7,20 +7,12 @@ $neospec.describe "Neospec::Spec#initialize" do
     )
   end
 
-  Expect "@result to be set" do
-    @spec.result.is_a?(Neospec::Spec::Result)
-  end
+  Then "instance variables are set" do
+    expect(@spec.result).to_be_a(Neospec::Spec::Result)
 
-  Expect "@logger to be set" do
-    @spec.logger == "the logger"
-  end
-
-  Expect "@description to be set" do
-    @spec.description == "the description"
-  end
-
-  Expect "@block to be set" do
-    @spec.block == "the block"
+    expect(@spec.logger).to_equal("the logger")
+    expect(@spec.description).to_equal("the description")
+    expect(@spec.block).to_equal("the block")
   end
 end
 
@@ -38,25 +30,24 @@ $neospec.describe "Neospec::Spec#log" do
     @spec.log("the message", context: "the context", result: "the result")
   end
 
-  Expect "the logger to have received it" do
-    @test_logger.calls == [
+  Then "the logger receives the call" do
+    expect(@test_logger.calls.size).to_equal(1)
+    expect(@test_logger.calls.first).to_equal(
       {
         message: "the message",
         context: "the context",
         result: "the result"
       }
-    ]
+    )
   end
 end
 
 $neospec.describe "Neospec::Spec#run" do
   Given "We create a new Neospec::Spec instance" do
-    @test_logger = TestLogger.new
-
     $was_run = false
 
     @spec = Neospec::Spec.new(
-      logger: @test_logger,
+      logger: TestLogger.new,
       description: "the description",
       block: -> { $was_run = true }
     )
@@ -66,22 +57,19 @@ $neospec.describe "Neospec::Spec#run" do
     @spec.run
   end
 
-  Expect "the block to have run" do
-    $was_run
+  Then "the block was run" do
+    expect($was_run).to_equal(true)
   end
-
 ensure
   $was_run = nil
 end
 
 $neospec.describe "Neospec::Spec Commands" do
   Given "We create a new Neospec::Spec instance" do
-    @test_logger = TestLogger.new
-
     $commands_run = []
 
     @spec = Neospec::Spec.new(
-      logger: @test_logger,
+      logger: TestLogger.new,
       description: "the description",
       block: -> {
         Given("Given") { $commands_run << "Given" }
@@ -97,42 +85,24 @@ $neospec.describe "Neospec::Spec Commands" do
     @spec.run
   end
 
-  Expect "all commands were run" do
-    $commands_run == Neospec::Spec::COMMANDS
+  Then "all commands were run" do
+    expect($commands_run).to_equal(Neospec::Spec::COMMANDS)
   end
-
 ensure
   $commands_run = nil
 end
 
-$neospec.describe "Neospec::Spec#Expect" do
+$neospec.describe "Neospec::Spec#expect" do
   Given "We create a new Neospec::Spec instance" do
-    @test_logger = TestLogger.new
-
     @spec = Neospec::Spec.new(
-      logger: @test_logger,
+      logger: TestLogger.new,
       description: "the description",
-      block: -> { }
+      block: -> {}
     )
   end
 
-  When "the block returns a thruthy value" do
-    @spec.block = -> { Expect("first Expect") { true } }
-    @spec.run
+  Then "we can call #expect and get an Expector" do
+    expectation = @spec.expect("something")
+    expect(expectation).to_be_a(Neospec::Expector)
   end
-
-  Expect("one expectation") { @spec.result.expectations == 1 }
-  Expect("result to be successful") { @spec.result.successful? }
-
-  When "the block returns a falsey value" do
-    @spec.block = -> { Expect("second Expect") { false } }
-    @spec.run
-  end
-
-  Expect("two expectations") { @spec.result.expectations == 2 }
-  Expect("one failure") { @spec.result.failures.count == 1 }
-  Expect("the failing line to be recorded") {
-    @spec.result.failures.first == ""
-  }
-  Expect("result to be failure") { !@spec.result.successful? }
 end

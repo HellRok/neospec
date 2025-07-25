@@ -3,12 +3,9 @@ $neospec.describe "Neospec::Config#initialize" do
     @config = Neospec::Config.new
   end
 
-  Expect "@logger to be set" do
-    @config.logger.is_a?(Neospec::Logger::Basic)
-  end
-
-  Expect "@runner to be set" do
-    @config.runner.is_a?(Neospec::Runner::Basic)
+  Then "instance variables are set" do
+    expect(@config.logger).to_be_a(Neospec::Logger::Basic)
+    expect(@config.runner).to_be_a(Neospec::Runner::Basic)
   end
 end
 
@@ -17,17 +14,17 @@ $neospec.describe "Neospec::Config#logger=" do
     @config = Neospec::Config.new
   end
 
-  Expect "@logger to be set" do
-    @config.logger.is_a?(Neospec::Logger::Basic)
+  Then "instance variables are set" do
+    expect(@config.logger).to_be_a(Neospec::Logger::Basic)
   end
 
-  Then "we set a new logger" do
+  When "we set a new logger" do
     @new_logger = Neospec::Logger::Basic.new
     @config.logger = @new_logger
   end
 
-  Expect "@logger to be the new logger" do
-    @config.logger == @new_logger
+  Then "@logger to be the new logger" do
+    expect(@config.logger).to_equal(@new_logger)
   end
 end
 
@@ -37,19 +34,16 @@ $neospec.describe "Neospec::Config#runner=" do
     @old_runner = @config.runner
   end
 
-  Expect "@runner to be set" do
-    @config.runner.is_a?(Neospec::Runner::Basic)
+  Then "instance variables are set" do
+    expect(@config.runner).to_be_a(Neospec::Runner::Basic)
   end
 
-  Then "we set a new runner" do
-    @config.logger = Neospec::Runner::Basic
+  When "we set a new runner" do
+    @config.runner = Neospec::Runner::Basic
   end
 
-  Expect "@runner to not be the old runner" do
-    @config.runner == @old_runner
-  end
-
-  Expect "@runner.config to have been set too" do
-    @config.runner.config == @config
+  Then "we have updated @runner" do
+    expect(@config.runner).not_to_equal(@old_runner)
+    expect(@config.runner.config).to_equal(@config)
   end
 end

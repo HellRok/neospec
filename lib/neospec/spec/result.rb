@@ -7,7 +7,9 @@ class Neospec
         @failures = []
       end
 
-      def successful? = @failures.any?
+      def successful?
+        @failures.empty?
+      end
     end
   end
 end
