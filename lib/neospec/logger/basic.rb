@@ -1,17 +1,20 @@
 class Neospec
   module Logger
     class Basic
-      def initialize
+      attr_reader :output
+
+      def initialize(output: $stdout)
+        @output = output
       end
 
       def log(message, context: nil, result: nil)
         case context
         when :describe
-          puts message
+          @output.puts message
         when :expect
-          puts "    #{result ? "✓" : "✗"} #{context} #{message}"
+          @output.puts "    #{result.successful? ? "✓" : "✗"} #{context} #{message}"
         else
-          puts "  #{context} #{message}"
+          @output.puts "  #{context} #{message}"
         end
       end
     end

@@ -8,19 +8,19 @@ $neospec.describe "Neospec::Spec#initialize" do
   end
 
   Then "instance variables are set" do
-    expect(@spec.result).to_be_a(Neospec::Spec::Result)
+    expect(@spec.instance_variable_get(:@__result)).to_be_a(Neospec::Spec::Result)
 
-    expect(@spec.logger).to_equal("the logger")
-    expect(@spec.description).to_equal("the description")
-    expect(@spec.block).to_equal("the block")
+    expect(@spec.instance_variable_get(:@__logger)).to_equal("the logger")
+    expect(@spec.instance_variable_get(:@__description)).to_equal("the description")
+    expect(@spec.instance_variable_get(:@__block)).to_equal("the block")
   end
 end
 
 $neospec.describe "Neospec::Spec#log" do
   Given "We create a new Neospec::Spec instance" do
-    @test_logger = TestLogger.new
+    @logger = TestLogger.new
     @spec = Neospec::Spec.new(
-      logger: @test_logger,
+      logger: @logger,
       description: "the description",
       block: "the block"
     )
@@ -31,8 +31,8 @@ $neospec.describe "Neospec::Spec#log" do
   end
 
   Then "the logger receives the call" do
-    expect(@test_logger.calls.size).to_equal(1)
-    expect(@test_logger.calls.first).to_equal(
+    expect(@logger.calls.size).to_equal(1)
+    expect(@logger.calls.first).to_equal(
       {
         message: "the message",
         context: "the context",

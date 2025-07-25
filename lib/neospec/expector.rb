@@ -9,9 +9,13 @@ class Neospec
       @result = result
     end
 
+    def log(message, context: nil)
+      @logger.log(message, context: context, result: @result)
+    end
+
     def succeeded(message)
       @result.expectations += 1
-      @logger.log(message, context: :expect, result: true)
+      log(message, context: :expect)
     end
 
     def failed(message)
@@ -21,7 +25,7 @@ class Neospec
         message: message
       )
 
-      @logger.log(message, context: :expect, result: false)
+      log(message, context: :expect)
     end
 
     def to_equal(expected)

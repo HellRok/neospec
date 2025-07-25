@@ -2,23 +2,25 @@ class Neospec
   class Spec
     COMMANDS = %w[Given And But When Then]
 
-    attr_reader :result, :logger, :description
-    attr_accessor :block
-
     def initialize(logger:, description:, block:)
-      @result = Neospec::Spec::Result.new
-      @logger = logger
-      @description = description
-      @block = block
+      # Everything here is prefixed to prevent people's specs overriding it,
+      # this came to be because I've already accidentally done this a few
+      # times.
+      @__result = Neospec::Spec::Result.new
+      @__logger = logger
+      @__description = description
+      @__block = block
     end
 
+    def result = @__result
+
     def log(message, context: nil, result: nil)
-      @logger.log(message, context: context, result: result)
+      @__logger.log(message, context: context, result: result)
     end
 
     def run
-      instance_exec { log @description, context: :describe }
-      instance_exec(&@block)
+      instance_exec { log(@__description, context: :describe) }
+      instance_exec(&@__block)
     end
 
     COMMANDS.each do |command|
@@ -30,10 +32,10 @@ class Neospec
 
     def expect(value)
       Neospec::Expector.new(
-        result: @result,
+        result: @__result,
         actual: value,
         stack: caller,
-        logger: logger
+        logger: @__logger
       )
     end
   end

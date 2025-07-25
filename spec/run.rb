@@ -3,11 +3,13 @@ $: << "./spec"
 
 require "neospec"
 require "support/test_logger"
+require "support/test_outputter"
 
 $neospec = Neospec.new
 
 require "neospec_spec"
 require "neospec/config_spec"
+require "neospec/logger/basic_spec"
 require "neospec/results_spec"
 require "neospec/runner/basic_spec"
 require "neospec/spec_spec"
