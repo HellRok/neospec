@@ -3,7 +3,7 @@ require "neospec"
 
 neospec = Neospec.new
 
-neospec.describe "an example test" do
+neospec.describe "An example test" do
   Given "apples are ripe" do
     @apples = :ripe
   end
@@ -13,6 +13,14 @@ neospec.describe "an example test" do
   end
 
   Expect "apples and bananas are as ripe as each other" do
+    @apples == @bananas
+  end
+
+  But "the bananas become TOO ripe" do
+    @bananas = :over_ripe
+  end
+
+  Expect "apples and bananas are now not as ripe as each other" do
     @apples == @bananas
   end
 end

@@ -6,6 +6,11 @@ class Neospec
       end
 
       def run(config:, suite:)
+        suite.specs.each do |spec|
+          spec.run
+          @results.record(spec.result)
+        end
+
         @results
       end
     end
