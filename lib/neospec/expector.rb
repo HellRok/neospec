@@ -1,6 +1,6 @@
 class Neospec
   class Expector
-    attr_reader :failure
+    attr_reader :failure, :result
 
     def initialize(result:, actual:, stack:, logger:)
       @actual = actual
@@ -40,7 +40,7 @@ class Neospec
       if @actual != expected
         succeeded "not to be equal"
       else
-        failed "'#{expected}' to not equal '#{@actual}'"
+        failed "'#{expected}' not to equal '#{@actual}'"
       end
     end
 
