@@ -1,10 +1,8 @@
-$: << "./lib"
-$: << "./spec"
 require "neospec"
 
-$neospec = Neospec.new
+neospec = Neospec.new
 
-$neospec.describe "An example test" do
+neospec.describe "An example test" do
   Given "apples are ripe" do
     @apples = :ripe
   end
@@ -26,10 +24,5 @@ $neospec.describe "An example test" do
   end
 end
 
-require "neospec_spec"
-require "neospec/config_spec"
-require "neospec/runner/basic_spec"
-
-$neospec.run
-
-$neospec.exit
+neospec.run
+neospec.exit

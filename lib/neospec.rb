@@ -7,25 +7,34 @@ require "neospec/spec"
 require "neospec/suite"
 
 class Neospec
+  attr_accessor :config, :suite, :results
+
   def initialize
     @config = Neospec::Config.new
     @suite = Neospec::Suite.new
-    @runner = Neospec::Runner::Basic.new
-    @logger = Neospec::Logger::Basic.new
 
     @results = Neospec::Results.new
   end
 
   def describe(description, &block)
     @suite.specs << Neospec::Spec.new(
-      logger: @logger,
+      logger: logger,
       description: description,
-      block: block,
+      block: block
     )
   end
 
   def run
-    @results << @runner.run(config: @config, suite: @suite)
+    runner.run(suite: @suite)
+    @results << runner.results
+  end
+
+  def logger
+    @config.logger
+  end
+
+  def runner
+    @config.runner
   end
 
   def exit

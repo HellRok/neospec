@@ -1,6 +1,6 @@
 class Neospec
   class Spec
-    COMMANDS = %w(Given And But When)
+    COMMANDS = %w[Given And But When Then]
 
     attr_reader :result
 
