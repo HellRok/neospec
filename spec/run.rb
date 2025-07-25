@@ -1,6 +1,8 @@
 $: << "./lib"
 $: << "./spec"
+
 require "neospec"
+require "support/test_logger"
 
 $neospec = Neospec.new
 
@@ -29,6 +31,7 @@ end
 require "neospec_spec"
 require "neospec/config_spec"
 require "neospec/runner/basic_spec"
+require "neospec/spec_spec"
 
 $neospec.run
 
