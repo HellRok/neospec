@@ -1,4 +1,4 @@
-$neospec.describe "Neospec::Config#initialize" do
+@neospec.describe "Neospec::Config#initialize" do
   Given "We create a new Neospec::Config instance" do
     @config = Neospec::Config.new
   end
@@ -9,7 +9,7 @@ $neospec.describe "Neospec::Config#initialize" do
   end
 end
 
-$neospec.describe "Neospec::Config#logger=" do
+@neospec.describe "Neospec::Config#logger=" do
   Given "We have a Neospec::Config instance" do
     @config = Neospec::Config.new
   end
@@ -28,7 +28,7 @@ $neospec.describe "Neospec::Config#logger=" do
   end
 end
 
-$neospec.describe "Neospec::Config#runner=" do
+@neospec.describe "Neospec::Config#runner=" do
   Given "We have a Neospec::Config instance" do
     @config = Neospec::Config.new
     @old_runner = @config.runner

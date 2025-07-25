@@ -1,4 +1,4 @@
-$neospec.describe "Neospec::Runner::Basic#initialize" do
+@neospec.describe "Neospec::Runner::Basic#initialize" do
   Given "We create a new Neospec::Runner::Basic instance" do
     @runner = Neospec::Runner::Basic.new(config: Neospec::Config.new)
   end
@@ -9,7 +9,7 @@ $neospec.describe "Neospec::Runner::Basic#initialize" do
   end
 end
 
-$neospec.describe "Neospec::Runner::Basic#run" do
+@neospec.describe "Neospec::Runner::Basic#run" do
   specs_run = []
 
   Given "We create a new Neospec::Runner::Basic instance" do

@@ -1,4 +1,4 @@
-$neospec.describe "Neospec#initialize" do
+@neospec.describe "Neospec#initialize" do
   Given "We create a new Neospec instance" do
     @neospec = Neospec.new
   end

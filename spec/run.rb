@@ -5,7 +5,7 @@ require "neospec"
 require "support/test_logger"
 require "support/test_outputter"
 
-$neospec = Neospec.new
+@neospec = Neospec.new
 
 require "neospec_spec"
 require "neospec/config_spec"
@@ -15,6 +15,6 @@ require "neospec/runner/basic_spec"
 require "neospec/spec_spec"
 require "neospec/suite_spec"
 
-$neospec.run
+@neospec.run
 
-$neospec.exit
+@neospec.exit

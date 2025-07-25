@@ -1,4 +1,4 @@
-$neospec.describe "Neospec::Results#initialize" do
+@neospec.describe "Neospec::Results#initialize" do
   Given "we create a new Neospec::Results instance" do
     @results = Neospec::Results.new
   end
@@ -8,7 +8,7 @@ $neospec.describe "Neospec::Results#initialize" do
   end
 end
 
-$neospec.describe "Neospec::Results#record" do
+@neospec.describe "Neospec::Results#record" do
   Given "we create a new Neospec::Results instance" do
     @results = Neospec::Results.new
   end
@@ -22,7 +22,7 @@ $neospec.describe "Neospec::Results#record" do
   end
 end
 
-$neospec.describe "Neospec::Results#<<" do
+@neospec.describe "Neospec::Results#<<" do
   Given "we create a new Neospec::Results instance" do
     @results = Neospec::Results.new
   end
@@ -43,7 +43,7 @@ $neospec.describe "Neospec::Results#<<" do
   end
 end
 
-$neospec.describe "Neospec::Results#successful?" do
+@neospec.describe "Neospec::Results#successful?" do
   Given "we create a new Neospec::Results instance" do
     @results = Neospec::Results.new
   end

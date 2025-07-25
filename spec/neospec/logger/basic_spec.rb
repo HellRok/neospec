@@ -1,4 +1,4 @@
-$neospec.describe "Neospec::Logger::Basic#initialize" do
+@neospec.describe "Neospec::Logger::Basic#initialize" do
   Given "we create a new Neospec::Suite instance" do
     @output = TestOutputter.new
     @logger = Neospec::Logger::Basic.new(output: @output)
@@ -9,7 +9,7 @@ $neospec.describe "Neospec::Logger::Basic#initialize" do
   end
 end
 
-$neospec.describe "Neospec::Logger::Basic#log" do
+@neospec.describe "Neospec::Logger::Basic#log" do
   Given "we create a new Neospec::Suite instance" do
     @output = TestOutputter.new
     @logger = Neospec::Logger::Basic.new(output: @output)

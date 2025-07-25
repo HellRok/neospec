@@ -1,4 +1,4 @@
-$neospec.describe "Neospec::Spec#initialize" do
+@neospec.describe "Neospec::Spec#initialize" do
   Given "We create a new Neospec::Spec instance" do
     @spec = Neospec::Spec.new(
       logger: "the logger",
@@ -16,7 +16,7 @@ $neospec.describe "Neospec::Spec#initialize" do
   end
 end
 
-$neospec.describe "Neospec::Spec#log" do
+@neospec.describe "Neospec::Spec#log" do
   Given "We create a new Neospec::Spec instance" do
     @logger = TestLogger.new
     @spec = Neospec::Spec.new(
@@ -42,14 +42,13 @@ $neospec.describe "Neospec::Spec#log" do
   end
 end
 
-$neospec.describe "Neospec::Spec#run" do
+@neospec.describe "Neospec::Spec#run" do
+  was_run = false
   Given "We create a new Neospec::Spec instance" do
-    $was_run = false
-
     @spec = Neospec::Spec.new(
       logger: TestLogger.new,
       description: "the description",
-      block: -> { $was_run = true }
+      block: -> { was_run = true }
     )
   end
 
@@ -58,25 +57,23 @@ $neospec.describe "Neospec::Spec#run" do
   end
 
   Then "the block was run" do
-    expect($was_run).to_equal(true)
+    expect(was_run).to_equal(true)
   end
-ensure
-  $was_run = nil
 end
 
-$neospec.describe "Neospec::Spec Commands" do
-  Given "We create a new Neospec::Spec instance" do
-    $commands_run = []
+@neospec.describe "Neospec::Spec Commands" do
+  commands_run = []
 
+  Given "We create a new Neospec::Spec instance" do
     @spec = Neospec::Spec.new(
       logger: TestLogger.new,
       description: "the description",
       block: -> {
-        Given("Given") { $commands_run << "Given" }
-        And("And") { $commands_run << "And" }
-        But("But") { $commands_run << "But" }
-        When("When") { $commands_run << "When" }
-        Then("Then") { $commands_run << "Then" }
+        Given("Given") { commands_run << "Given" }
+        And("And") { commands_run << "And" }
+        But("But") { commands_run << "But" }
+        When("When") { commands_run << "When" }
+        Then("Then") { commands_run << "Then" }
       }
     )
   end
@@ -86,13 +83,11 @@ $neospec.describe "Neospec::Spec Commands" do
   end
 
   Then "all commands were run" do
-    expect($commands_run).to_equal(Neospec::Spec::COMMANDS)
+    expect(commands_run).to_equal(Neospec::Spec::COMMANDS)
   end
-ensure
-  $commands_run = nil
 end
 
-$neospec.describe "Neospec::Spec#expect" do
+@neospec.describe "Neospec::Spec#expect" do
   Given "We create a new Neospec::Spec instance" do
     @spec = Neospec::Spec.new(
       logger: TestLogger.new,
