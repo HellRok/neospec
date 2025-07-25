@@ -1,5 +1,6 @@
 require "neospec/config"
 require "neospec/expector"
+require "neospec/logger"
 require "neospec/logger/basic"
 require "neospec/results"
 require "neospec/runner/basic"

@@ -1,18 +1,28 @@
 class Neospec
   module Logger
     class Basic
-      attr_reader :output
-
-      def initialize(output: $stdout)
+      def initialize(color: true, output: $stdout)
+        @color = color
         @output = output
       end
 
       def log(message, context: nil, result: nil)
         case context
         when :describe
-          @output.puts message
+          if @color
+            @output.puts "#{BLUE}#{message}#{RESET}"
+          else
+            @output.puts message
+          end
         when :expect
-          @output.puts "    #{result.successful? ? "✓" : "✗"} #{context} #{message}"
+          if @color
+            str = "    "
+            str << (result.successful? ? "#{GREEN}✓" : "#{RED}✗")
+            str << " #{context} #{message}#{RESET}"
+            @output.puts str
+          else
+            @output.puts "    #{result.successful? ? "✓" : "✗"} #{context} #{message}"
+          end
         else
           @output.puts "  #{context} #{message}"
         end
