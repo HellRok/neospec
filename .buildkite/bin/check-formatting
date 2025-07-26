@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+echo $PATH
+
 .buildkite/bin/install-ruby
 .buildkite/bin/setup-ruby
 
