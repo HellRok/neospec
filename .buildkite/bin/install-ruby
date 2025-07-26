@@ -3,7 +3,7 @@ set -euo pipefail
 
 .buildkite/bin/install-asdf
 
-if [[ -z "$1" ]]; then
+if [[ -z ${1+x} ]]; then
   asdf set ruby $1
 fi
 
