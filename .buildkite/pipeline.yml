@@ -35,6 +35,18 @@ steps:
     commands:
       - .buildkite/bin/test-ruby 2.6.10
 
+  - label: 'JRuby - 10'
+    commands:
+      - .buildkite/bin/test-ruby jruby-10.0.0.1
+
+  - label: 'JRuby - 9'
+    commands:
+      - .buildkite/bin/test-ruby jruby-9.4.13.0
+
+  - label: 'TruffleRuby - 24'
+    commands:
+      - .buildkite/bin/test-ruby truffleruby-24.2.1
+
   - label: 'Taylor - v0.3.14.1'
     commands:
       - .buildkite/bin/test-taylor v0.3.14.1
