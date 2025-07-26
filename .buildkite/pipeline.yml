@@ -1,5 +1,4 @@
 steps:
   - label: 'Formatting'
     commands:
-      - .buildkite/bin/setup
-      - /root/.asdf/shims/bundle exec rake standard
+      - .buildkite/bin/check-format

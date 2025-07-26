@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipfail
+
+.buildkite/bin/install-ruby
+.buildkite/bin/setup-ruby
+
+bundle exec rake standard

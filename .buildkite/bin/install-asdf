@@ -1,10 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-echo "PATH=\"/root/.asdf/shims:/root/.asdf/bin:$PATH\"" > /root/.bashrc
-
 if [ ! -f "/root/.asdf/bin/asdf" ]; then
-  PATH="/root/.asdf/shims:/root/.asdf/bin:$PATH"
   ASDF_VERSION=v0.16.4
   ASDF_PLATFORM=amd64
   ASDF_URL=https://github.com/asdf-vm/asdf/releases/download/$ASDF_VERSION/asdf-$ASDF_VERSION-linux-$ASDF_PLATFORM.tar.gz

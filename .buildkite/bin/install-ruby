@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+.buildkite/bin/install-asdf
+
+if [[ -z "$1" ]]; then
+  asdf set ruby $1
+fi
+
+asdf install ruby
