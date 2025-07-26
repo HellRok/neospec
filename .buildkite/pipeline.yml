@@ -2,4 +2,4 @@ steps:
   - label: 'Formatting'
     commands:
       - .buildkite/bin/setup
-      - bundle exec rake standard
+      - /root/.asdf/shims/bundle exec rake standard

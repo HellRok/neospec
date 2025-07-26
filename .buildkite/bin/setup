@@ -2,19 +2,9 @@
 set -euxo pipefail
 
 .buildkite/bin/install-asdf
-echo $PATH
 
 source /root/.bashrc
 
-which asdf
-which gem
-
 asdf install ruby
 gem install bundler
-asdf reshim
-
-ls -l /root/.asdf/shims
-echo $PATH
-which bundle
-
 bundle install
