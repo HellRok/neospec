@@ -1,19 +1,19 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-echo "PATH=\"~/.asdf/shims:~/.asdf/bin:$PATH\"" > ~/.bashrc
+echo "PATH=\"/root/.asdf/shims:/root/.asdf/bin:$PATH\"" > /root/.bashrc
 
-if [ ! -f "~/.asdf/bin/asdf" ]; then
-  PATH="~/.asdf/shims:~/.asdf/bin:$PATH"
+if [ ! -f "/root/.asdf/bin/asdf" ]; then
+  PATH="/root/.asdf/shims:/root/.asdf/bin:$PATH"
   ASDF_VERSION=v0.16.4
   ASDF_PLATFORM=amd64
   ASDF_URL=https://github.com/asdf-vm/asdf/releases/download/$ASDF_VERSION/asdf-$ASDF_VERSION-linux-$ASDF_PLATFORM.tar.gz
 
-  wget -O ~/asdf.tar.gz "${ASDF_URL}"
-  tar xfv ~/asdf.tar.gz
-  mkdir -p ~/.asdf/bin/
-  mv asdf ~/.asdf/bin/asdf
-  rm ~/asdf.tar.gz
+  wget -O /root/asdf.tar.gz "${ASDF_URL}"
+  tar xfv /root/asdf.tar.gz
+  mkdir -p /root/.asdf/bin/
+  mv asdf /root/.asdf/bin/asdf
+  rm /root/asdf.tar.gz
 
   asdf plugin add ruby
 fi

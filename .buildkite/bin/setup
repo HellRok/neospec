@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-source .buildkite/bin/install-asdf
+.buildkite/bin/install-asdf
 
-asdf install ruby
-gem install bundler
-bundle install
+(
+  asdf install ruby
+  gem install bundler
+  asdf reshim
+  bundle install
+)
