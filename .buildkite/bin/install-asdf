@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-export PATH="~/.asdf/shims:~/.asdf/bin:$PATH"
+echo "PATH=\"~/.asdf/shims:~/.asdf/bin:$PATH\"" > ~/.bashrc
 
 if [ ! -f "~/.asdf/bin/asdf" ]; then
+  PATH="~/.asdf/shims:~/.asdf/bin:$PATH"
   ASDF_VERSION=v0.16.4
   ASDF_PLATFORM=amd64
   ASDF_URL=https://github.com/asdf-vm/asdf/releases/download/$ASDF_VERSION/asdf-$ASDF_VERSION-linux-$ASDF_PLATFORM.tar.gz
