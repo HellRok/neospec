@@ -66,3 +66,30 @@ end
     expect(@results.successful?).to_equal(false)
   end
 end
+
+@neospec.describe "Neospec::Results#failures" do
+  Given "we create a new Neospec::Results instance" do
+    @results = Neospec::Results.new
+  end
+
+  When "there are failures" do
+    result = Neospec::Spec::Result.new
+    result.failures << "failure 1"
+    @results.record(result)
+
+    result = Neospec::Spec::Result.new
+    result.failures << "failure 2"
+    result.failures << "failure 3"
+    @results.record(result)
+  end
+
+  Then "it combines all the failures" do
+    expect(@results.failures).to_equal(
+      [
+        "failure 1",
+        "failure 2",
+        "failure 3"
+      ]
+    )
+  end
+end

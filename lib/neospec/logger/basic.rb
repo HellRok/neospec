@@ -10,15 +10,15 @@ class Neospec
         case context
         when :describe
           if @color
-            @output.puts "#{BLUE}#{message}#{RESET}"
+            @output.puts "#{Neospec::Color::BLUE}#{message}#{Neospec::Color::RESET}"
           else
             @output.puts message
           end
         when :expect
           if @color
             str = "    "
-            str << (result.successful? ? "#{GREEN}✓" : "#{RED}✗")
-            str << " #{context} #{message}#{RESET}"
+            str << (result.successful? ? "#{Neospec::Color::GREEN}✓" : "#{Neospec::Color::RED}✗")
+            str << " #{context} #{message}#{Neospec::Color::RESET}"
             @output.puts str
           else
             @output.puts "    #{result.successful? ? "✓" : "✗"} #{context} #{message}"
