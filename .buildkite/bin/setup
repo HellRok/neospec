@@ -8,4 +8,6 @@ source /root/.bashrc
 asdf install ruby
 gem install bundler
 asdf reshim
+
+ls -l /root/.asdf/shims
 bundle install
