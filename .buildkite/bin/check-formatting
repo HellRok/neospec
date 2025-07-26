@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -euo pipfail
+set -euo pipefail
 
 .buildkite/bin/install-ruby
 .buildkite/bin/setup-ruby
