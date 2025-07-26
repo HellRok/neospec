@@ -22,7 +22,7 @@ class Neospec
       @result.expectations += 1
       @result.failures << Neospec::Spec::Result::Failure.new(
         stack: @stack,
-        message: message
+        message: "Expected #{message}"
       )
 
       log(message, context: :expect)

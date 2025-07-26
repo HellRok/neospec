@@ -22,7 +22,7 @@ end
 
   Then "it outputs with no indent" do
     expect(@output.calls.size).to_equal(1)
-    expect(@output.calls.last).to_equal("#{Neospec::Logger::BLUE}describe message#{Neospec::Logger::RESET}")
+    expect(@output.calls.last).to_equal("#{Neospec::Color::BLUE}describe message#{Neospec::Color::RESET}")
   end
 
   When "called with a successful expect context" do
@@ -31,7 +31,7 @@ end
 
   Then "it outputs with indent and ✓" do
     expect(@output.calls.size).to_equal(2)
-    expect(@output.calls.last).to_equal("    #{Neospec::Logger::GREEN}✓ expect success message#{Neospec::Logger::RESET}")
+    expect(@output.calls.last).to_equal("    #{Neospec::Color::GREEN}✓ expect success message#{Neospec::Color::RESET}")
   end
 
   When "called with a failed expect context" do
@@ -42,7 +42,7 @@ end
 
   Then "it outputs with indent and ✗" do
     expect(@output.calls.size).to_equal(3)
-    expect(@output.calls.last).to_equal("    #{Neospec::Logger::RED}✗ expect success message#{Neospec::Logger::RESET}")
+    expect(@output.calls.last).to_equal("    #{Neospec::Color::RED}✗ expect success message#{Neospec::Color::RESET}")
   end
 
   When "called with any other context" do

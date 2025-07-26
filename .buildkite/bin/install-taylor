@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+TAYLOR_VERSION=$1
+
+if [ ! -f "/root/.taylor-versions/taylor-${TAYLOR_VERSION}" ]; then
+  TAYLOR_URL=https://github.com/HellRok/Taylor/releases/download/${TAYLOR_VERSION}/taylor-linux-${TAYLOR_VERSION}.zip
+
+  wget -O /root/taylor.zip "${TAYLOR_URL}"
+  unzip /root/taylor.zip
+  mkdir -p /root/.taylor-versions/
+  mv taylor /root/.taylor-versions/taylor-${TAYLOR_VERSION}
+  rm /root/taylor.zip
+fi
+

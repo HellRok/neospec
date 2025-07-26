@@ -17,5 +17,9 @@ class Neospec
     def successful?
       @specs.all?(&:successful?)
     end
+
+    def failures
+      @specs.flat_map(&:failures)
+    end
   end
 end

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+TAYLOR_VERSION=$1
+
+.buildkite/bin/install-taylor $TAYLOR_VERSION
+
+/root/.taylor-versions/taylor-${TAYLOR_VERSION} spec/run.rb

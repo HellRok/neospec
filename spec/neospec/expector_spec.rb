@@ -7,7 +7,7 @@
       result: @result,
       actual: "actual",
       logger: @logger,
-      stack: ["the stack"],
+      stack: ["the stack"]
     )
   end
 
@@ -28,7 +28,7 @@ end
       result: @result,
       actual: "actual",
       logger: @logger,
-      stack: ["the stack"],
+      stack: ["the stack"]
     )
   end
 
@@ -57,7 +57,7 @@ end
       result: @result,
       actual: "actual",
       logger: @logger,
-      stack: ["the stack"],
+      stack: ["the stack"]
     )
   end
 
@@ -90,7 +90,7 @@ end
       result: @result,
       actual: "actual",
       logger: @logger,
-      stack: ["the stack"],
+      stack: ["the stack"]
     )
   end
 
@@ -100,7 +100,7 @@ end
 
   Then "the failure is recorded" do
     expect(@result.failures.size).to_equal(1)
-    expect(@result.failures.first.message).to_equal("the failure message")
+    expect(@result.failures.first.message).to_equal("Expected the failure message")
     expect(@result.failures.first.stack).to_equal(["the stack"])
   end
 
@@ -129,7 +129,7 @@ end
       result: @result,
       actual: "actual",
       logger: @logger,
-      stack: ["the stack"],
+      stack: ["the stack"]
     )
   end
 
