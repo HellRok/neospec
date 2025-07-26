@@ -7,7 +7,7 @@
       result: @result,
       actual: "actual",
       logger: @logger,
-      stack: ["the stack"],
+      stack: ["the stack"]
     )
   end
 
@@ -28,7 +28,7 @@ end
       result: @result,
       actual: "actual",
       logger: @logger,
-      stack: ["the stack"],
+      stack: ["the stack"]
     )
   end
 
@@ -57,7 +57,7 @@ end
       result: @result,
       actual: "actual",
       logger: @logger,
-      stack: ["the stack"],
+      stack: ["the stack"]
     )
   end
 
@@ -90,7 +90,7 @@ end
       result: @result,
       actual: "actual",
       logger: @logger,
-      stack: ["the stack"],
+      stack: ["the stack"]
     )
   end
 
@@ -129,7 +129,7 @@ end
       result: @result,
       actual: "actual",
       logger: @logger,
-      stack: ["the stack"],
+      stack: ["the stack"]
     )
   end
 

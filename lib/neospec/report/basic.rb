@@ -28,7 +28,7 @@ class Neospec
           failure_output.join("\n")
         end.join("\n\n")
 
-        "#{output}"
+        output
       end
     end
   end
