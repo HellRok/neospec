@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+export PATH="~/.asdf/shims:~/.asdf/bin:$PATH"
+
+if [ ! -f "~/.asdf/bin/asdf" ]; then
+  ASDF_VERSION=v0.16.4
+  ASDF_PLATFORM=amd64
+  ASDF_URL=https://github.com/asdf-vm/asdf/releases/download/$ASDF_VERSION/asdf-$ASDF_VERSION-linux-$ASDF_PLATFORM.tar.gz
+
+  wget -O ~/asdf.tar.gz "${ASDF_URL}"
+  tar xfv ~/asdf.tar.gz
+  mkdir -p ~/.asdf/bin/
+  mv asdf ~/.asdf/bin/asdf
+  rm ~/asdf.tar.gz
+
+  asdf plugin add ruby
+fi

@@ -1,0 +1,5 @@
+steps:
+  - label: 'Formatting'
+    commands:
+      - .buildkite/bin/setup
+      - bundle exec rake standard
