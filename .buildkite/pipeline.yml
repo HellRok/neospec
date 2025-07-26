@@ -6,3 +6,7 @@ steps:
   - label: 'Ruby - 3.4.5'
     commands:
       - .buildkite/bin/test-ruby 3.4.5
+
+  - label: 'Taylor - v0.3.14.1'
+    commands:
+      - .buildkite/bin/test-taylor v0.3.14.1
