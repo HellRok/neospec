@@ -3,9 +3,37 @@ steps:
     commands:
       - .buildkite/bin/check-formatting
 
-  - label: 'Ruby - 3.4.5'
+  - label: 'Ruby - 3.5'
+    commands:
+      - .buildkite/bin/test-ruby 3.5.0-preview1
+
+  - label: 'Ruby - 3.4'
     commands:
       - .buildkite/bin/test-ruby 3.4.5
+
+  - label: 'Ruby - 3.3'
+    commands:
+      - .buildkite/bin/test-ruby 3.3.8
+
+  - label: 'Ruby - 3.2'
+    commands:
+      - .buildkite/bin/test-ruby 3.2.8
+
+  - label: 'Ruby - 3.1'
+    commands:
+      - .buildkite/bin/test-ruby 3.1.7
+
+  - label: 'Ruby - 3.0'
+    commands:
+      - .buildkite/bin/test-ruby 3.0.7
+
+  - label: 'Ruby - 2.7'
+    commands:
+      - .buildkite/bin/test-ruby 2.7.8
+
+  - label: 'Ruby - 2.6'
+    commands:
+      - .buildkite/bin/test-ruby 2.6.10
 
   - label: 'Taylor - v0.3.14.1'
     commands:
