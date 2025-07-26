@@ -3,9 +3,9 @@ set -euo pipefail
 
 .buildkite/bin/install-asdf
 
-(
-  asdf install ruby
-  gem install bundler
-  asdf reshim
-  bundle install
-)
+cat /root/.bashrc
+
+asdf install ruby
+gem install bundler
+asdf reshim
+bundle install
