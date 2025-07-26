@@ -7,4 +7,5 @@ if [[ -n ${1+x} ]]; then
   asdf set ruby $1
 fi
 
+asdf plugin update ruby
 asdf install ruby

@@ -13,15 +13,15 @@ steps:
 
   - label: 'Ruby - 3.3'
     commands:
-      - .buildkite/bin/test-ruby 3.3.9
+      - .buildkite/bin/test-ruby 3.3.8
 
   - label: 'Ruby - 3.2'
     commands:
-      - .buildkite/bin/test-ruby 3.2.9
+      - .buildkite/bin/test-ruby 3.2.8
 
   - label: 'Ruby - 3.1'
     commands:
-      - .buildkite/bin/test-ruby 3.1.6
+      - .buildkite/bin/test-ruby 3.1.7
 
   - label: 'Ruby - 3.0'
     commands:
@@ -30,6 +30,10 @@ steps:
   - label: 'Ruby - 2.7'
     commands:
       - .buildkite/bin/test-ruby 2.7.8
+
+  - label: 'Ruby - 2.6'
+    commands:
+      - .buildkite/bin/test-ruby 2.6.10
 
   - label: 'Taylor - v0.3.14.1'
     commands:

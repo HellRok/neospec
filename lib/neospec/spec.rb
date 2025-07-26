@@ -12,7 +12,9 @@ class Neospec
       @__block = block
     end
 
-    def result = @__result
+    def result
+      @__result
+    end
 
     def log(message, context: nil, result: nil)
       @__logger.log(message, context: context, result: result)
