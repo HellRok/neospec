@@ -1,4 +1,4 @@
 steps:
   - label: 'Formatting'
     commands:
-      - .buildkite/bin/check-format
+      - .buildkite/bin/check-formatting
