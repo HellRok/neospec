@@ -22,13 +22,15 @@ class Neospec
 
     def run
       instance_exec { log(@__description, context: :describe) }
+      result.start!
       instance_exec(&@__block)
+      result.finish!
     end
 
     COMMANDS.each do |command|
       define_method(command) do |description, &block|
-        block_result = block.call
-        log(description, context: command.to_sym, result: block_result)
+        log(description, context: command.to_sym)
+        block.call
       end
     end
 

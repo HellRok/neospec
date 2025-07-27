@@ -15,6 +15,7 @@ require "neospec/report/basic_spec"
 require "neospec/results_spec"
 require "neospec/runner/basic_spec"
 require "neospec/spec_spec"
+require "neospec/spec/result_spec"
 require "neospec/suite_spec"
 
 @neospec.run

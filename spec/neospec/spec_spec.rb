@@ -59,6 +59,10 @@ end
   Then "the block was run" do
     expect(was_run).to_equal(true)
   end
+
+  And "the result timing was updated" do
+    expect(@spec.result.finish).to_be_a(Time)
+  end
 end
 
 @neospec.describe "Neospec::Spec Commands" do

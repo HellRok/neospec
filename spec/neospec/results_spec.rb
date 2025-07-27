@@ -67,6 +67,56 @@ end
   end
 end
 
+@neospec.describe "Neospec::Results#expectations" do
+  Given "we create a new Neospec::Results instance" do
+    @results = Neospec::Results.new
+  end
+
+  Then "it starts at 0" do
+    expect(@results.expectations).to_equal(0)
+  end
+
+  When "there are expectations" do
+    result = Neospec::Spec::Result.new
+    result.expectations = 4
+    @results.record(result)
+
+    result = Neospec::Spec::Result.new
+    result.expectations = 8
+    @results.record(result)
+  end
+
+  Then "it sums the expectations" do
+    expect(@results.expectations).to_equal(12)
+  end
+end
+
+@neospec.describe "Neospec::Results#duration" do
+  Given "we create a new Neospec::Results instance" do
+    @results = Neospec::Results.new
+  end
+
+  Then "it starts at 0" do
+    expect(@results.duration).to_equal(0)
+  end
+
+  When "there are results" do
+    result = Neospec::Spec::Result.new
+    result.start = 1
+    result.finish = 3
+    @results.record(result)
+
+    result = Neospec::Spec::Result.new
+    result.start = 4
+    result.finish = 9.5
+    @results.record(result)
+  end
+
+  Then "it sums the durations" do
+    expect(@results.duration).to_equal(7.5)
+  end
+end
+
 @neospec.describe "Neospec::Results#failures" do
   Given "we create a new Neospec::Results instance" do
     @results = Neospec::Results.new

@@ -21,5 +21,13 @@ class Neospec
     def failures
       @specs.flat_map(&:failures)
     end
+
+    def duration
+      @specs.sum(0, &:duration)
+    end
+
+    def expectations
+      @specs.sum(0, &:expectations)
+    end
   end
 end

@@ -7,9 +7,11 @@ class Neospec
 
       def self.specs(results)
         <<~STR.chomp
+          Finished in #{formatted_duration(results.duration)}
+
           Results:
             Specs:\t#{results.specs.size}
-            Expectations:\t#{results.specs.sum { |spec| spec.expectations }}
+            Expectations:\t#{results.expectations}
         STR
       end
 
@@ -29,6 +31,26 @@ class Neospec
         end.join("\n\n")
 
         output
+      end
+
+      def self.formatted_duration(duration)
+        if duration < 1
+          "#{(duration * 1000).round(2)} milliseconds"
+        elsif duration < 60
+          "#{duration.round(2)} seconds"
+        elsif duration < 3600
+          minutes = (duration / 60).to_i
+          seconds = (duration % 60).to_i
+          "#{minutes} minute#{minutes == 1 ? "" : "s"} #{seconds} second#{seconds == 1 ? "" : "s"}"
+        elsif duration < 86400
+          hours = (duration / 3600).to_i
+          minutes = ((duration % 3600) / 60).to_i
+          "#{hours} hour#{hours == 1 ? "" : "s"} #{minutes} minute#{minutes == 1 ? "" : "s"}"
+        else
+          days = (duration / 86400).to_i
+          hours = ((duration % 86400) / 3600).to_i
+          "#{days} day#{days == 1 ? "" : "s"} #{hours} hour#{hours == 1 ? "" : "s"}"
+        end
       end
     end
   end
