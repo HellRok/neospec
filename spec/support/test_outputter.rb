@@ -6,6 +6,10 @@ class TestOutputter
   end
 
   def puts(message)
+    write "#{message}\n"
+  end
+
+  def write(message)
     @calls << message
   end
 end

@@ -25,7 +25,7 @@
     expect(@output.calls.size).to_equal(1)
     expect(
       @output.calls.last
-    ).to_equal(<<~STR.chomp)
+    ).to_equal(<<~STR)
 
       Finished in 7.5 seconds
 
@@ -75,7 +75,7 @@
     expect(@output.calls.size).to_equal(1)
     expect(
       @output.calls.last
-    ).to_equal(<<~STR.chomp)
+    ).to_equal(<<~STR)
 
       Finished in 7.75 seconds
 

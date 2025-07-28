@@ -22,7 +22,7 @@ end
 
   Then "it outputs with no indent" do
     expect(@output.calls.size).to_equal(1)
-    expect(@output.calls.last).to_equal("#{Neospec::Color::BLUE}describe message#{Neospec::Color::RESET}")
+    expect(@output.calls.last).to_equal("#{Neospec::Color::BLUE}describe message#{Neospec::Color::RESET}\n")
   end
 
   When "called with a successful expect context" do
@@ -31,7 +31,7 @@ end
 
   Then "it outputs with indent and ✓" do
     expect(@output.calls.size).to_equal(2)
-    expect(@output.calls.last).to_equal("    #{Neospec::Color::GREEN}✓ expect success message#{Neospec::Color::RESET}")
+    expect(@output.calls.last).to_equal("    #{Neospec::Color::GREEN}✓ expect success message#{Neospec::Color::RESET}\n")
   end
 
   When "called with a failed expect context" do
@@ -42,7 +42,7 @@ end
 
   Then "it outputs with indent and ✗" do
     expect(@output.calls.size).to_equal(3)
-    expect(@output.calls.last).to_equal("    #{Neospec::Color::RED}✗ expect success message#{Neospec::Color::RESET}")
+    expect(@output.calls.last).to_equal("    #{Neospec::Color::RED}✗ expect success message#{Neospec::Color::RESET}\n")
   end
 
   When "called with any other context" do
@@ -51,7 +51,7 @@ end
 
   Then "it outputs with some indent" do
     expect(@output.calls.size).to_equal(4)
-    expect(@output.calls.last).to_equal("  Given given message")
+    expect(@output.calls.last).to_equal("  Given given message\n")
   end
 end
 
@@ -67,7 +67,7 @@ end
 
   Then "it outputs with no indent" do
     expect(@output.calls.size).to_equal(1)
-    expect(@output.calls.last).to_equal("describe message")
+    expect(@output.calls.last).to_equal("describe message\n")
   end
 
   When "called with a successful expect context" do
@@ -76,7 +76,7 @@ end
 
   Then "it outputs with indent and ✓" do
     expect(@output.calls.size).to_equal(2)
-    expect(@output.calls.last).to_equal("    ✓ expect success message")
+    expect(@output.calls.last).to_equal("    ✓ expect success message\n")
   end
 
   When "called with a failed expect context" do
@@ -87,7 +87,7 @@ end
 
   Then "it outputs with indent and ✗" do
     expect(@output.calls.size).to_equal(3)
-    expect(@output.calls.last).to_equal("    ✗ expect success message")
+    expect(@output.calls.last).to_equal("    ✗ expect success message\n")
   end
 
   When "called with any other context" do
@@ -96,6 +96,6 @@ end
 
   Then "it outputs with some indent" do
     expect(@output.calls.size).to_equal(4)
-    expect(@output.calls.last).to_equal("  Given given message")
+    expect(@output.calls.last).to_equal("  Given given message\n")
   end
 end
