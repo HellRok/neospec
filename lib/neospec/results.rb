@@ -1,33 +1,29 @@
 class Neospec
   class Results
-    attr_reader :specs
+    attr_accessor :suites
 
-    def initialize
-      @specs = []
+    def initialize(suites: [])
+      @suites = suites
     end
 
-    def record(result)
-      @specs << result
-    end
-
-    def <<(other)
-      @specs += other.specs
+    def specs
+      @suites.flat_map(&:specs)
     end
 
     def successful?
-      @specs.all?(&:successful?)
+      specs.all?(&:successful?)
     end
 
     def failures
-      @specs.flat_map(&:failures)
+      specs.flat_map(&:failures)
     end
 
     def duration
-      @specs.sum(0, &:duration)
+      specs.sum(0, &:duration)
     end
 
     def expectations
-      @specs.sum(0, &:expectations)
+      specs.sum(0, &:expectations)
     end
   end
 end

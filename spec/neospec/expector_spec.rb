@@ -1,4 +1,4 @@
-@neospec.describe "Neospec::Expector#initialize" do
+@unit.describe "Neospec::Expector#initialize" do
   Given "We create a new Neospec::Expector instance" do
     @result = Neospec::Spec::Result.new
     @logger = TestLogger.new
@@ -19,7 +19,7 @@
   end
 end
 
-@neospec.describe "Neospec::Expector#log" do
+@unit.describe "Neospec::Expector#log" do
   Given "We create a new Neospec::Expector instance" do
     @result = Neospec::Spec::Result.new
     @logger = TestLogger.new
@@ -48,7 +48,7 @@ end
   end
 end
 
-@neospec.describe "Neospec::Expector#succeeded" do
+@unit.describe "Neospec::Expector#succeeded" do
   Given "We create a new Neospec::Expector instance" do
     @result = Neospec::Spec::Result.new
     @logger = TestLogger.new
@@ -81,7 +81,7 @@ end
   end
 end
 
-@neospec.describe "Neospec::Expector#failed" do
+@unit.describe "Neospec::Expector#failed" do
   Given "We create a new Neospec::Expector instance" do
     @result = Neospec::Spec::Result.new
     @logger = TestLogger.new
@@ -120,7 +120,7 @@ end
   end
 end
 
-@neospec.describe "Neospec::Expector expectations" do
+@unit.describe "Neospec::Expector expectations" do
   Given "We create a new Neospec::Expector instance" do
     @result = Neospec::Spec::Result.new
     @logger = TestLogger.new

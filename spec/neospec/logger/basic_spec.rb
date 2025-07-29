@@ -1,4 +1,4 @@
-@neospec.describe "Neospec::Logger::Basic#initialize" do
+@unit.describe "Neospec::Logger::Basic#initialize" do
   Given "we create a new Neospec::Suite instance" do
     @output = TestOutputter.new
     @logger = Neospec::Logger::Basic.new(output: @output, color: "color")
@@ -10,7 +10,7 @@
   end
 end
 
-@neospec.describe "Neospec::Logger::Basic#log" do
+@unit.describe "Neospec::Logger::Basic#log" do
   Given "we create a new Neospec::Suite instance" do
     @output = TestOutputter.new
     @logger = Neospec::Logger::Basic.new(output: @output)
@@ -55,7 +55,7 @@ end
   end
 end
 
-@neospec.describe "Neospec::Logger::Basic#log without color" do
+@unit.describe "Neospec::Logger::Basic#log without color" do
   Given "we create a new Neospec::Suite instance" do
     @output = TestOutputter.new
     @logger = Neospec::Logger::Basic.new(color: false, output: @output)

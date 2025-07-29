@@ -2,10 +2,10 @@ class Neospec
   module Report
     module Basic
       def self.call(results, output: $stdout)
-        output.puts "\n#{specs(results)}#{failures(results)}"
+        output.puts "\n#{successes(results)}#{failures(results)}"
       end
 
-      def self.specs(results)
+      def self.successes(results)
         <<~STR.chomp
           Finished in #{formatted_duration(results.duration)}
 
@@ -16,7 +16,7 @@ class Neospec
       end
 
       def self.failures(results)
-        return unless results.failures.any?
+        return if results.successful?
 
         output = "\n  Failures:\t#{results.failures.size}\n\n"
         output << "Failures:\n"

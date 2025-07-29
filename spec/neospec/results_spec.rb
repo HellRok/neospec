@@ -1,55 +1,50 @@
-@neospec.describe "Neospec::Results#initialize" do
+@unit.describe "Neospec::Results#initialize" do
   Given "we create a new Neospec::Results instance" do
-    @results = Neospec::Results.new
+    @results = Neospec::Results.new(suites: "suites")
   end
 
   Then "instance variables are set" do
-    expect(@results.specs).to_equal([])
+    expect(@results.suites).to_equal("suites")
   end
 end
 
-@neospec.describe "Neospec::Results#record" do
+@unit.describe "Neospec::Results#specs" do
   Given "we create a new Neospec::Results instance" do
-    @results = Neospec::Results.new
+    @suite_1 = Neospec::Suite.new
+    @suite_2 = Neospec::Suite.new
+    @results = Neospec::Results.new(suites: [@suite_1, @suite_2])
   end
 
-  And "we record a result" do
-    @results.record("result")
+  And "we have defined specs" do
+    @suite_1.describe "a spec" do
+      expect(true).to_equal(true)
+    end
+
+    @suite_2.describe "a spec" do
+      expect(true).to_equal(true)
+    end
+
+    @suite_2.describe "a spec" do
+      expect(true).to_equal(true)
+    end
   end
 
-  Then "@specs is appended" do
-    expect(@results.specs).to_equal(["result"])
+  Then "#specs contains all the suites specs" do
+    expect(@results.specs.size).to_equal(3)
   end
 end
 
-@neospec.describe "Neospec::Results#<<" do
+@unit.describe "Neospec::Results#successful?" do
   Given "we create a new Neospec::Results instance" do
-    @results = Neospec::Results.new
+    @suite = Neospec::Suite.new
+    @results = Neospec::Results.new(suites: [@suite])
   end
 
-  And "we record a result" do
-    @results.record("result")
-  end
-
-  And "we append another Neospec::Results" do
-    other_results = Neospec::Results.new
-    other_results.record("another result")
-
-    @results << other_results
-  end
-
-  Then "@specs contains all the results" do
-    expect(@results.specs).to_equal(["result", "another result"])
-  end
-end
-
-@neospec.describe "Neospec::Results#successful?" do
-  Given "we create a new Neospec::Results instance" do
-    @results = Neospec::Results.new
-  end
-
-  And "we record a successful result" do
-    @results.record(Neospec::Spec::Result.new)
+  And "we run a successful build" do
+    @suite.describe "a spec" do
+      expect(true).to_equal(true)
+    end
+    @suite.run(logger: TestLogger.new)
   end
 
   Then "it's successful" do
@@ -57,9 +52,10 @@ end
   end
 
   But "we record an unsuccessful result" do
-    result = Neospec::Spec::Result.new
-    result.failures << "failure"
-    @results.record(result)
+    @suite.describe "a failing spec" do
+      expect(true).to_equal(false)
+    end
+    @suite.run(logger: TestLogger.new)
   end
 
   Then "it's not successful" do
@@ -67,33 +63,42 @@ end
   end
 end
 
-@neospec.describe "Neospec::Results#expectations" do
+@unit.describe "Neospec::Results#expectations" do
   Given "we create a new Neospec::Results instance" do
-    @results = Neospec::Results.new
+    @suite = Neospec::Suite.new
+    @results = Neospec::Results.new(suites: [@suite])
   end
 
   Then "it starts at 0" do
     expect(@results.expectations).to_equal(0)
   end
 
-  When "there are expectations" do
-    result = Neospec::Spec::Result.new
-    result.expectations = 4
-    @results.record(result)
+  When "we run a build" do
+    @suite.describe "a spec" do
+      expect(true).to_equal(true)
+      expect(true).to_equal(true)
+      expect(true).to_equal(true)
+    end
 
-    result = Neospec::Spec::Result.new
-    result.expectations = 8
-    @results.record(result)
+    @suite.describe "another spec" do
+      expect(true).to_equal(true)
+      expect(true).to_equal(true)
+      expect(true).to_equal(true)
+      expect(true).to_equal(true)
+    end
+
+    @suite.run(logger: TestLogger.new)
   end
 
   Then "it sums the expectations" do
-    expect(@results.expectations).to_equal(12)
+    expect(@results.expectations).to_equal(7)
   end
 end
 
-@neospec.describe "Neospec::Results#duration" do
+@unit.describe "Neospec::Results#duration" do
   Given "we create a new Neospec::Results instance" do
-    @results = Neospec::Results.new
+    @suite = Neospec::Suite.new
+    @results = Neospec::Results.new(suites: [@suite])
   end
 
   Then "it starts at 0" do
@@ -101,15 +106,15 @@ end
   end
 
   When "there are results" do
-    result = Neospec::Spec::Result.new
-    result.start = 1
-    result.finish = 3
-    @results.record(result)
+    spec_1 = Neospec::Spec.new(description: "a spec", block: -> {})
+    spec_1.result.start = 1
+    spec_1.result.finish = 3
+    @suite.specs << spec_1
 
-    result = Neospec::Spec::Result.new
-    result.start = 4
-    result.finish = 9.5
-    @results.record(result)
+    spec_2 = Neospec::Spec.new(description: "another spec", block: -> {})
+    spec_2.result.start = 4
+    spec_2.result.finish = 9.5
+    @suite.specs << spec_2
   end
 
   Then "it sums the durations" do
@@ -117,20 +122,21 @@ end
   end
 end
 
-@neospec.describe "Neospec::Results#failures" do
+@unit.describe "Neospec::Results#failures" do
   Given "we create a new Neospec::Results instance" do
-    @results = Neospec::Results.new
+    @suite = Neospec::Suite.new
+    @results = Neospec::Results.new(suites: [@suite])
   end
 
   When "there are failures" do
-    result = Neospec::Spec::Result.new
-    result.failures << "failure 1"
-    @results.record(result)
+    spec_1 = Neospec::Spec.new(description: "a spec", block: -> {})
+    spec_1.result.failures << "failure 1"
+    @suite.specs << spec_1
 
-    result = Neospec::Spec::Result.new
-    result.failures << "failure 2"
-    result.failures << "failure 3"
-    @results.record(result)
+    spec_2 = Neospec::Spec.new(description: "another spec", block: -> {})
+    spec_2.result.failures << "failure 2"
+    spec_2.result.failures << "failure 3"
+    @suite.specs << spec_2
   end
 
   Then "it combines all the failures" do
