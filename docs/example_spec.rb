@@ -1,8 +1,9 @@
 require "neospec"
 
-neospec = Neospec.new
+unit = Neospec::Suite.new
+neospec = Neospec.new(suites: [unit])
 
-neospec.describe "An example test" do
+unit.describe "An example test" do
   Given "apples are ripe" do
     @apples = :ripe
   end
@@ -24,5 +25,4 @@ neospec.describe "An example test" do
   end
 end
 
-neospec.run
-neospec.exit
+neospec.run!

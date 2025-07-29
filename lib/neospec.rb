@@ -9,6 +9,7 @@ require "neospec/spec"
 require "neospec/spec/result"
 require "neospec/spec/result/failure"
 require "neospec/suite"
+require "neospec/version"
 
 class Neospec
   attr_accessor :logger, :suites, :reporters

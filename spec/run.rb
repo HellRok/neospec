@@ -25,5 +25,6 @@ require "neospec/runner/basic_spec"
 require "neospec/spec_spec"
 require "neospec/spec/result_spec"
 require "neospec/suite_spec"
+require "neospec/version_spec"
 
 neospec.run!
