@@ -1,4 +1,4 @@
-@neospec.describe "Neospec::Spec::Result#initialize" do
+@unit.describe "Neospec::Spec::Result#initialize" do
   Given "we create a new Neospec::Spec::Result instance" do
     @result = Neospec::Spec::Result.new
   end
@@ -11,7 +11,7 @@
   end
 end
 
-@neospec.describe "Neospec::Spec::Result#successful?" do
+@unit.describe "Neospec::Spec::Result#successful?" do
   Given "we create a new Neospec::Spec::Result instance with no failures" do
     @result = Neospec::Spec::Result.new
   end
@@ -30,7 +30,7 @@ end
   end
 end
 
-@neospec.describe "Neospec::Spec::Result#finish!" do
+@unit.describe "Neospec::Spec::Result#finish!" do
   Given "we create a new Neospec::Spec::Result instance" do
     @result = Neospec::Spec::Result.new
   end
@@ -44,7 +44,7 @@ end
   end
 end
 
-@neospec.describe "Neospec::Spec::Result#duration" do
+@unit.describe "Neospec::Spec::Result#duration" do
   Given "we create a new Neospec::Spec::Result instance" do
     @result = Neospec::Spec::Result.new
   end

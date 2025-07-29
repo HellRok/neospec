@@ -1,4 +1,4 @@
-@neospec.describe "Neospec::Logger::Symbols#initialize" do
+@unit.describe "Neospec::Logger::Symbols#initialize" do
   Given "we create a new Neospec::Suite instance" do
     @output = TestOutputter.new
     @logger = Neospec::Logger::Symbols.new(output: @output, color: "color")
@@ -10,7 +10,7 @@
   end
 end
 
-@neospec.describe "Neospec::Logger::Symbols#log" do
+@unit.describe "Neospec::Logger::Symbols#log" do
   Given "we create a new Neospec::Suite instance" do
     @output = TestOutputter.new
     @logger = Neospec::Logger::Symbols.new(output: @output)

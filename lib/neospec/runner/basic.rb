@@ -1,17 +1,9 @@
 class Neospec
   module Runner
     class Basic
-      attr_accessor :config, :results
-
-      def initialize(config:)
-        @config = config
-        @results = Neospec::Results.new
-      end
-
-      def run(suite:)
+      def run(logger:, suite:)
         suite.specs.each do |spec|
-          spec.run
-          @results.record(spec.result)
+          spec.run(logger: logger)
         end
       end
     end

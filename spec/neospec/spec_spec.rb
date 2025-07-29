@@ -1,7 +1,6 @@
-@neospec.describe "Neospec::Spec#initialize" do
+@unit.describe "Neospec::Spec#initialize" do
   Given "We create a new Neospec::Spec instance" do
     @spec = Neospec::Spec.new(
-      logger: "the logger",
       description: "the description",
       block: "the block"
     )
@@ -10,20 +9,19 @@
   Then "instance variables are set" do
     expect(@spec.instance_variable_get(:@__result)).to_be_a(Neospec::Spec::Result)
 
-    expect(@spec.instance_variable_get(:@__logger)).to_equal("the logger")
     expect(@spec.instance_variable_get(:@__description)).to_equal("the description")
     expect(@spec.instance_variable_get(:@__block)).to_equal("the block")
   end
 end
 
-@neospec.describe "Neospec::Spec#log" do
+@unit.describe "Neospec::Spec#log" do
   Given "We create a new Neospec::Spec instance" do
     @logger = TestLogger.new
     @spec = Neospec::Spec.new(
-      logger: @logger,
       description: "the description",
       block: "the block"
     )
+    @spec.instance_variable_set(:@__logger, @logger)
   end
 
   When "log is called" do
@@ -42,18 +40,18 @@ end
   end
 end
 
-@neospec.describe "Neospec::Spec#run" do
+@unit.describe "Neospec::Spec#run" do
   was_run = false
+
   Given "We create a new Neospec::Spec instance" do
     @spec = Neospec::Spec.new(
-      logger: TestLogger.new,
       description: "the description",
       block: -> { was_run = true }
     )
   end
 
   When "the spec is run" do
-    @spec.run
+    @spec.run(logger: TestLogger.new)
   end
 
   Then "the block was run" do
@@ -65,12 +63,11 @@ end
   end
 end
 
-@neospec.describe "Neospec::Spec Commands" do
+@unit.describe "Neospec::Spec Commands" do
   commands_run = []
 
   Given "We create a new Neospec::Spec instance" do
     @spec = Neospec::Spec.new(
-      logger: TestLogger.new,
       description: "the description",
       block: -> {
         Given("Given") { commands_run << "Given" }
@@ -83,7 +80,7 @@ end
   end
 
   When "the spec is run" do
-    @spec.run
+    @spec.run(logger: TestLogger.new)
   end
 
   Then "all commands were run" do
@@ -91,10 +88,9 @@ end
   end
 end
 
-@neospec.describe "Neospec::Spec#expect" do
+@unit.describe "Neospec::Spec#expect" do
   Given "We create a new Neospec::Spec instance" do
     @spec = Neospec::Spec.new(
-      logger: TestLogger.new,
       description: "the description",
       block: -> {}
     )

@@ -1,26 +1,24 @@
-@neospec.describe "Neospec::Report::Basic.call" do
+@unit.describe "Neospec::Report::Basic.call" do
   When "we have some results with no failures" do
-    @results = Neospec::Results.new
+    @suite = Neospec::Suite.new
+    @results = Neospec::Results.new(suites: [@suite])
 
-    result_1 = Neospec::Spec::Result.new
-    result_1.expectations = 3
-    result_1.start = 1
-    result_1.finish = 5
-    @results.record(result_1)
+    spec_1 = Neospec::Spec.new(description: "a spec", block: -> {})
+    spec_1.result.expectations = 3
+    spec_1.result.start = 1
+    spec_1.result.finish = 5
+    @suite.specs << spec_1
 
-    result_2 = Neospec::Spec::Result.new
-    result_2.expectations = 4
-    result_2.start = 6
-    result_2.finish = 9.5
-    @results.record(result_2)
+    spec_2 = Neospec::Spec.new(description: "another spec", block: -> {})
+    spec_2.result.expectations = 4
+    spec_2.result.start = 6
+    spec_2.result.finish = 9.5
+    @suite.specs << spec_2
   end
 
   Then "it outputs information" do
     @output = TestOutputter.new
-    Neospec::Report::Basic.call(
-      @results,
-      output: @output
-    )
+    Neospec::Report::Basic.call(@results, output: @output)
 
     expect(@output.calls.size).to_equal(1)
     expect(
@@ -36,52 +34,40 @@
   end
 
   When "we have some results with failures" do
-    @results = Neospec::Results.new
-
-    result_1 = Neospec::Spec::Result.new
-    result_1.expectations = 9
-    result_1.start = 1
-    result_1.finish = 5
-    @results.record(result_1)
-
-    result_2 = Neospec::Spec::Result.new
-    result_2.expectations = 4
-    result_2.start = 6
-    result_2.finish = 9.5
-    result_2.failures << Neospec::Spec::Result::Failure.new(
+    spec_3 = Neospec::Spec.new(description: "more spec", block: -> {})
+    spec_3.result.expectations = 4
+    spec_3.result.start = 6
+    spec_3.result.finish = 9.5
+    spec_3.result.failures << Neospec::Spec::Result::Failure.new(
       message: "oops!",
       stack: ["line 1", "line 2", "line 3", "line 4", "line 5", "line 6"]
     )
-    @results.record(result_2)
+    @suite.specs << spec_3
 
-    result_3 = Neospec::Spec::Result.new
-    result_3.expectations = 2
-    result_3.start = 10
-    result_3.finish = 10.25
-    result_3.failures << Neospec::Spec::Result::Failure.new(
+    spec_4 = Neospec::Spec.new(description: "even more spec", block: -> {})
+    spec_4.result.expectations = 2
+    spec_4.result.start = 10
+    spec_4.result.finish = 10.25
+    spec_4.result.failures << Neospec::Spec::Result::Failure.new(
       message: "again, oops!",
       stack: ["line 7", "line 8", "line 9", "line 10", "line 11", "line 12"]
     )
-    @results.record(result_3)
+    @suite.specs << spec_4
   end
 
   Then "it outputs information" do
-    @output = TestOutputter.new
-    Neospec::Report::Basic.call(
-      @results,
-      output: @output
-    )
+    Neospec::Report::Basic.call(@results, output: @output)
 
-    expect(@output.calls.size).to_equal(1)
+    expect(@output.calls.size).to_equal(2)
     expect(
       @output.calls.last
     ).to_equal(<<~STR)
 
-      Finished in 7.75 seconds
+      Finished in 11.25 seconds
 
       Results:
-        Specs:\t3
-        Expectations:\t15
+        Specs:\t4
+        Expectations:\t13
         Failures:\t2
 
       Failures:
@@ -102,7 +88,7 @@
   end
 end
 
-@neospec.describe "Neospec::Report::Basic.formatted_duration" do
+@unit.describe "Neospec::Report::Basic.formatted_duration" do
   Given "some durations" do
     hour = 60 * 60
     day = 24 * 60 * 60

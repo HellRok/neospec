@@ -1,4 +1,3 @@
-require "neospec/config"
 require "neospec/color"
 require "neospec/expector"
 require "neospec/logger/basic"
@@ -12,37 +11,27 @@ require "neospec/spec/result/failure"
 require "neospec/suite"
 
 class Neospec
-  attr_accessor :config, :suite, :results
+  attr_accessor :logger, :suites, :reporters
 
-  def initialize
-    @config = Neospec::Config.new
-    @suite = Neospec::Suite.new
-
-    @results = Neospec::Results.new
+  def initialize(
+    suites: [],
+    logger: Neospec::Logger::Basic.new,
+    reporters: [Neospec::Report::Basic]
+  )
+    @suites = suites
+    @logger = logger
+    @reporters = reporters
   end
 
-  def describe(description, &block)
-    @suite.specs << Neospec::Spec.new(
-      logger: logger,
-      description: description,
-      block: block
-    )
-  end
+  def run!
+    @suites.each { |suite|
+      suite.run(logger: logger)
+    }
 
-  def run
-    runner.run(suite: @suite)
-    @results << runner.results
-  end
+    results = Neospec::Results.new(suites: @suites)
 
-  def logger
-    @config.logger
-  end
+    reporters.each { |reporter| reporter.call(results) }
 
-  def runner
-    @config.runner
-  end
-
-  def exit
-    Kernel.exit 1 unless @results.successful?
+    exit 1 unless results.successful?
   end
 end
