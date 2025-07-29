@@ -1,4 +1,4 @@
-require_relative "./lib/neospec/version"
+require_relative "lib/neospec/version"
 
 Gem::Specification.new do |gem|
   gem.name = "neospec"

@@ -1,5 +1,8 @@
 # neospec
 
+[![Build status](https://badge.buildkite.com/d749f932043ec182f9c3fe12db7d5a503a31b17110667de5df.svg?branch=main)](https://buildkite.com/oequacki/neospec)
+![Gem Total Downloads](https://img.shields.io/gem/dt/neospec)
+
 ## Usage
 
 Add `gem "neospec"` to your `Gemfile` and run `bundle install`.
