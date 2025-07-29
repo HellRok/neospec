@@ -44,6 +44,12 @@ class Neospec
       instance_exec { log(@__description, context: :describe) }
       result.start!
       instance_exec(&@__block)
+    rescue => error
+      failures << Neospec::Spec::Result::Failure.new(
+        stack: error.backtrace,
+        message: "Raised #{error.class}, '#{error.message}'"
+      )
+    ensure
       result.finish!
     end
 

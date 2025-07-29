@@ -36,13 +36,19 @@ end
 end
 
 @unit.describe "Neospec::Suite#run" do
-  was_run = false
+  called = []
 
-  Given "we create a new Neospec::Suite instance with specs" do
+  Given "we create a new Neospec::Suite instance" do
     @suite = Neospec::Suite.new
+  end
 
+  And "it has specs" do
     @suite.describe "a spec" do
-      was_run = true
+      called << "spec 1"
+    end
+
+    @suite.describe "another spec" do
+      called << "spec 2"
     end
   end
 
@@ -51,6 +57,6 @@ end
   end
 
   Then "it ran the spec" do
-    expect(was_run).to_equal(true)
+    expect(called).to_equal(["spec 1", "spec 2"])
   end
 end

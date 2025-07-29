@@ -1,20 +1,37 @@
 @unit.describe "Neospec::Runner::Basic#run" do
-  specs_run = []
+  called = []
 
   Given "We create a new Neospec::Runner::Basic instance" do
     @runner = Neospec::Runner::Basic.new
   end
 
-  When "there are specs defined" do
+  When "we have a suite with hooks" do
     @suite = Neospec::Suite.new
-    @suite.specs << Neospec::Spec.new(
-      description: "",
-      block: -> { specs_run << "spec 1" }
-    )
-    @suite.specs << Neospec::Spec.new(
-      description: "",
-      block: -> { specs_run << "spec 2" }
-    )
+    @suite.setup do
+      called << "setup"
+    end
+
+    @suite.teardown do
+      called << "teardown"
+    end
+
+    @suite.before do
+      called << "before"
+    end
+
+    @suite.after do
+      called << "after"
+    end
+  end
+
+  And "there are specs defined" do
+    @suite.describe "a spec" do
+      called << "spec 1"
+    end
+
+    @suite.describe "another spec" do
+      called << "spec 2"
+    end
   end
 
   And "we call #run" do
@@ -22,6 +39,17 @@
   end
 
   Then "the specs are run" do
-    expect(specs_run).to_equal(["spec 1", "spec 2"])
+    expect(called).to_equal(
+      [
+        "setup",
+        "before",
+        "spec 1",
+        "after",
+        "before",
+        "spec 2",
+        "after",
+        "teardown"
+      ]
+    )
   end
 end

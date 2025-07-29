@@ -63,6 +63,31 @@ end
   end
 end
 
+@unit.describe "Neospec::Spec#run with errors" do
+  Given "We create a new Neospec::Spec instance" do
+    @spec = Neospec::Spec.new(
+      description: "the description",
+      block: -> { raise StandardError, "whoops!" }
+    )
+  end
+
+  When "the spec is run" do
+    @spec.run(logger: TestLogger.new)
+  end
+
+  Then "the spec is considered failed" do
+    expect(@spec.successful?).to_equal(false)
+    expect(@spec.failures.size).to_equal(1)
+    expect(@spec.failures.first.message).to_equal("Raised StandardError, 'whoops!'")
+    expect(@spec.failures.first.stack).not_to_equal([])
+  end
+
+  And "the timing is persisted" do
+    expect(@spec.result.start).to_be_a(Time)
+    expect(@spec.result.finish).to_be_a(Time)
+  end
+end
+
 @unit.describe "Neospec::Spec Commands" do
   commands_run = []
 
