@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+MRUBY_VERSION=$1
+
+MRUBY_CONFIG=/root/build_config.rb .buildkite/bin/install-ruby $MRUBY_VERSION
+
+ruby spec/run.rb
