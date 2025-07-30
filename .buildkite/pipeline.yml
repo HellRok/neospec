@@ -3,70 +3,97 @@ steps:
     commands:
       - .buildkite/bin/check-formatting
 
-  - label: 'Ruby - 3.5'
-    commands:
-      - .buildkite/bin/test-ruby 3.5.0-preview1
+  - wait
 
-  - label: 'Ruby - 3.4'
-    commands:
-      - .buildkite/bin/test-ruby 3.4.5
+  - group: Ruby
+    steps:
+      - label: Ruby 3.5
+        commands:
+          - .buildkite/bin/test-ruby 3.5.0-preview1
+      - label: Ruby 3.4
+        commands:
+          - .buildkite/bin/test-ruby 3.4.5
+      - label: Ruby 3.3
+        commands:
+          - .buildkite/bin/test-ruby 3.3.8
+      - label: Ruby 3.2
+        commands:
+          - .buildkite/bin/test-ruby 3.2.8
+      - label: Ruby 3.1
+        commands:
+          - .buildkite/bin/test-ruby 3.1.7
+      - label: Ruby 3.0
+        commands:
+          - .buildkite/bin/test-ruby 3.0.7
+      - label: Ruby 2.7
+        commands:
+          - .buildkite/bin/test-ruby 2.7.8
+      - label: Ruby 2.6
+        commands:
+          - .buildkite/bin/test-ruby 2.6.10
 
-  - label: 'Ruby - 3.3'
-    commands:
-      - .buildkite/bin/test-ruby 3.3.8
+  - group: JRuby
+    steps:
+      - label: JRuby 10
+        commands:
+          - .buildkite/bin/test-ruby jruby-10.0.0.1
+      - label: JRuby 9
+        commands:
+          - .buildkite/bin/test-ruby jruby-9.4.13.0
 
-  - label: 'Ruby - 3.2'
-    commands:
-      - .buildkite/bin/test-ruby 3.2.8
+  - group: TruffleRuby
+    steps:
+      - label: TruffleRuby 24
+        commands:
+          - .buildkite/bin/test-ruby truffleruby-24.2.1
+      - label: TruffleRuby 23
+        commands:
+          - .buildkite/bin/test-ruby truffleruby-23.1.2
+      - label: TruffleRuby 22
+        commands:
+          - .buildkite/bin/test-ruby truffleruby-22.3.1
+      - label: TruffleRuby 21
+        commands:
+          - .buildkite/bin/test-ruby truffleruby-21.3.0
 
-  - label: 'Ruby - 3.1'
-    commands:
-      - .buildkite/bin/test-ruby 3.1.7
+  - group: TruffleRuby+GraalVM
+    steps:
+      - label: TruffleRuby+GraalVM 24
+        commands:
+          - .buildkite/bin/test-ruby truffleruby+graalvm-24.2.1
+      - label: TruffleRuby+GraalVM 23
+        commands:
+          - .buildkite/bin/test-ruby truffleruby+graalvm-23.1.2
+      - label: TruffleRuby+GraalVM 22
+        commands:
+          - .buildkite/bin/test-ruby truffleruby+graalvm-22.3.1
 
-  - label: 'Ruby - 3.0'
-    commands:
-      - .buildkite/bin/test-ruby 3.0.7
+  - group: Taylor
+    steps:
+      - label: Taylor v0.3.14.1
+        commands:
+          - .buildkite/bin/test-taylor v0.3.14.1
+      - label: Taylor v0.3.13
+        commands:
+          - .buildkite/bin/test-taylor v0.3.13
+      - label: Taylor v0.3.12.2
+        commands:
+          - .buildkite/bin/test-taylor v0.3.12.2
 
-  - label: 'Ruby - 2.7'
-    commands:
-      - .buildkite/bin/test-ruby 2.7.8
-
-  - label: 'Ruby - 2.6'
-    commands:
-      - .buildkite/bin/test-ruby 2.6.10
-
-  - label: 'JRuby - 10'
-    commands:
-      - .buildkite/bin/test-ruby jruby-10.0.0.1
-
-  - label: 'JRuby - 9'
-    commands:
-      - .buildkite/bin/test-ruby jruby-9.4.13.0
-
-  - label: 'TruffleRuby - 24'
-    commands:
-      - .buildkite/bin/test-ruby truffleruby-24.2.1
-
-  - label: 'Taylor - v0.3.14.1'
-    commands:
-      - .buildkite/bin/test-taylor v0.3.14.1
-
-  - label: 'MRuby - 3.4'
-    commands:
-      - .buildkite/bin/test-mruby 3.4.0
-
-  - label: 'MRuby - 3.3'
-    commands:
-      - .buildkite/bin/test-mruby 3.3.0
-
-  - label: 'MRuby - 3.2'
-    commands:
-      - .buildkite/bin/test-mruby 3.2.0
-
-  - label: 'MRuby - 3.1'
-    commands:
-      - .buildkite/bin/test-mruby 3.1.0
-
-  - label: 'MRuby - 3.0'
-    commands:
-      - .buildkite/bin/test-mruby 3.0.0
+  - group: MRuby
+    steps:
+      - label: MRuby 3.4
+        commands:
+          - .buildkite/bin/test-mruby 3.4.0
+      - label: MRuby 3.3
+        commands:
+          - .buildkite/bin/test-mruby 3.3.0
+      - label: MRuby 3.2
+        commands:
+          - .buildkite/bin/test-mruby 3.2.0
+      - label: MRuby 3.1
+        commands:
+          - .buildkite/bin/test-mruby 3.1.0
+      - label: MRuby 3.0
+        commands:
+          - .buildkite/bin/test-mruby 3.0.0

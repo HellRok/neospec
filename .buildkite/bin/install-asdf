@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if [ ! -f "/root/.asdf/bin/asdf" ]; then
+if [[ ! -f "/root/.asdf/bin/asdf" ]]; then
   ASDF_VERSION=v0.16.4
   ASDF_PLATFORM=amd64
   ASDF_URL=https://github.com/asdf-vm/asdf/releases/download/$ASDF_VERSION/asdf-$ASDF_VERSION-linux-$ASDF_PLATFORM.tar.gz
