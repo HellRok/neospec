@@ -1,5 +1,9 @@
 class Neospec
   class Expector
+    include Neospec::Expector::EqualityExpectors
+    include Neospec::Expector::InclusionExpectors
+    include Neospec::Expector::ErrorExpectors
+
     attr_reader :failure, :result
 
     def initialize(result:, actual:, stack:, logger:)
@@ -26,30 +30,15 @@ class Neospec
       )
 
       log(message, context: :expect)
+      raise Neospec::Spec::Result::FailureEncounteredError
     end
 
-    def to_equal(expected)
-      if @actual == expected
-        succeeded "to be equal"
-      else
-        failed "'#{expected}' to equal '#{@actual}'"
+    def actual
+      if @actual.is_a?(Proc)
+        @actual = @actual.call
       end
-    end
 
-    def not_to_equal(expected)
-      if @actual != expected
-        succeeded "not to be equal"
-      else
-        failed "'#{expected}' not to equal '#{@actual}'"
-      end
-    end
-
-    def to_be_a(expected)
-      if @actual.is_a?(expected)
-        succeeded "to be a #{expected}"
-      else
-        failed "'#{expected}' to equal '#{@actual.class}'"
-      end
+      @actual
     end
   end
 end

@@ -42,6 +42,10 @@
       message: "oops!",
       stack: ["line 1", "line 2", "line 3", "line 4", "line 5", "line 6"]
     )
+    spec_3.result.failures << Neospec::Spec::Result::Failure.new(
+      message: "more oops!",
+      stack: ["line 7", "line 8", "line 9", "line 10", "line 11", "line 12"]
+    )
     @suite.specs << spec_3
 
     spec_4 = Neospec::Spec.new(description: "even more spec", block: -> {})
@@ -50,7 +54,7 @@
     spec_4.result.finish = 10.25
     spec_4.result.failures << Neospec::Spec::Result::Failure.new(
       message: "again, oops!",
-      stack: ["line 7", "line 8", "line 9", "line 10", "line 11", "line 12"]
+      stack: ["line 13", "line 14", "line 15", "line 16", "line 17", "line 18"]
     )
     @suite.specs << spec_4
   end
@@ -59,31 +63,38 @@
     Neospec::Report::Basic.call(@results, output: @output)
 
     expect(@output.calls.size).to_equal(2)
-    expect(
-      @output.calls.last
-    ).to_equal(<<~STR)
+    expect(@output.calls.last).to_equal(<<~STR)
 
       Finished in 11.25 seconds
 
       Results:
         Specs:\t4
         Expectations:\t13
-        Failures:\t2
+        Failures:\t3
 
       Failures:
-        #{Neospec::Color::RED}oops!#{Neospec::Color::RESET}
-          > line 1
-          > line 2
-          > line 3
-          > line 4
-          > line 5
+        #{Neospec::Color::BLUE}== more spec ==#{Neospec::Color::RESET}
+          #{Neospec::Color::RED}-- oops! --#{Neospec::Color::RESET}
+            > line 1
+            > line 2
+            > line 3
+            > line 4
+            > line 5
 
-        #{Neospec::Color::RED}again, oops!#{Neospec::Color::RESET}
-          > line 7
-          > line 8
-          > line 9
-          > line 10
-          > line 11
+          #{Neospec::Color::RED}-- more oops! --#{Neospec::Color::RESET}
+            > line 7
+            > line 8
+            > line 9
+            > line 10
+            > line 11
+
+        #{Neospec::Color::BLUE}== even more spec ==#{Neospec::Color::RESET}
+          #{Neospec::Color::RED}-- again, oops! --#{Neospec::Color::RESET}
+            > line 13
+            > line 14
+            > line 15
+            > line 16
+            > line 17
     STR
   end
 end

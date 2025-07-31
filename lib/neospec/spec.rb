@@ -44,11 +44,14 @@ class Neospec
       instance_exec { log(@__description, context: :describe) }
       result.start!
       instance_exec(&@__block)
+    rescue Neospec::Spec::Result::FailureEncounteredError
+      # Do nothing
     rescue => error
       failures << Neospec::Spec::Result::Failure.new(
         stack: error.backtrace,
         message: "Raised #{error.class}, '#{error.message}'"
       )
+      @__logger.log("raised #{error.class}", context: :error, result: result)
     ensure
       result.finish!
     end
@@ -60,10 +63,12 @@ class Neospec
       end
     end
 
-    def expect(value)
+    def expect(value = nil, &block)
+      raise ArgumentError, "Can't specify value AND pass a block" if value && block_given?
+
       Neospec::Expector.new(
         result: @__result,
-        actual: value,
+        actual: block_given? ? block : value,
         stack: caller,
         logger: @__logger
       )
