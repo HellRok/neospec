@@ -1,3 +1,9 @@
+@unit.describe "Neospec::Expector" do
+  expect(Neospec::Expector.included_modules).to_include(Neospec::Expector::EqualityExpectors)
+  expect(Neospec::Expector.included_modules).to_include(Neospec::Expector::ErrorExpectors)
+  expect(Neospec::Expector.included_modules).to_include(Neospec::Expector::InclusionExpectors)
+end
+
 @unit.describe "Neospec::Expector#initialize" do
   Given "We create a new Neospec::Expector instance" do
     @result = Neospec::Spec::Result.new
@@ -95,7 +101,9 @@ end
   end
 
   When "#failed is called" do
-    @expect.failed("the failure message")
+    expect {
+      @expect.failed("the failure message")
+    }.to_raise(Neospec::Spec::Result::FailureEncounteredError)
   end
 
   Then "the failure is recorded" do
@@ -120,82 +128,28 @@ end
   end
 end
 
-@unit.describe "Neospec::Expector expectations" do
-  Given "We create a new Neospec::Expector instance" do
-    @result = Neospec::Spec::Result.new
-    @logger = TestLogger.new
+@unit.describe "Neospec::Expector#actual" do
+  Given "We create new Neospec::Expector instances with a value and a block" do
+    @expect_with_value = Neospec::Expector.new(
+      result: Neospec::Spec::Result.new,
+      actual: "a basic value",
+      logger: TestLogger.new,
+      stack: ["the stack"]
+    )
 
-    @expect = Neospec::Expector.new(
-      result: @result,
-      actual: "actual",
-      logger: @logger,
+    @expect_with_block = Neospec::Expector.new(
+      result: Neospec::Spec::Result.new,
+      actual: -> { "a block" },
+      logger: TestLogger.new,
       stack: ["the stack"]
     )
   end
 
-  When "#to_equal is called with success" do
-    @expect.to_equal("actual")
+  When "we return simple value" do
+    expect(@expect_with_value.actual).to_equal("a basic value")
   end
 
-  Then "it's recorded" do
-    expect(@result.expectations).to_equal(1)
-    expect(@result.failures.size).to_equal(0)
-    expect(@logger.calls.size).to_equal(1)
-    expect(@logger.calls.last[:message]).to_equal("to be equal")
-  end
-
-  When "#to_equal is called with failure" do
-    @expect.to_equal("wrong")
-  end
-
-  Then "it's recorded" do
-    expect(@result.expectations).to_equal(2)
-    expect(@result.failures.size).to_equal(1)
-    expect(@logger.calls.size).to_equal(2)
-    expect(@logger.calls.last[:message]).to_equal("'wrong' to equal 'actual'")
-  end
-
-  When "#not_to_equal is called with success" do
-    @expect.not_to_equal("wrong")
-  end
-
-  Then "it's recorded" do
-    expect(@result.expectations).to_equal(3)
-    expect(@result.failures.size).to_equal(1)
-    expect(@logger.calls.size).to_equal(3)
-    expect(@logger.calls.last[:message]).to_equal("not to be equal")
-  end
-
-  When "#to_equal is called with failure" do
-    @expect.not_to_equal("actual")
-  end
-
-  Then "it's recorded" do
-    expect(@result.expectations).to_equal(4)
-    expect(@result.failures.size).to_equal(2)
-    expect(@logger.calls.size).to_equal(4)
-    expect(@logger.calls.last[:message]).to_equal("'actual' not to equal 'actual'")
-  end
-
-  When "#to_be_a is called with success" do
-    @expect.to_be_a(String)
-  end
-
-  Then "it's recorded" do
-    expect(@result.expectations).to_equal(5)
-    expect(@result.failures.size).to_equal(2)
-    expect(@logger.calls.size).to_equal(5)
-    expect(@logger.calls.last[:message]).to_equal("to be a String")
-  end
-
-  When "#to_be_a is called with failure" do
-    @expect.to_be_a(Array)
-  end
-
-  Then "it's recorded" do
-    expect(@result.expectations).to_equal(6)
-    expect(@result.failures.size).to_equal(3)
-    expect(@logger.calls.size).to_equal(6)
-    expect(@logger.calls.last[:message]).to_equal("'Array' to equal 'String'")
+  When "we return the block result" do
+    expect(@expect_with_block.actual).to_equal("a block")
   end
 end

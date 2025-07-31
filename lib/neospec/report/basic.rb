@@ -21,16 +21,19 @@ class Neospec
         output = "\n  Failures:\t#{results.failures.size}\n\n"
         output << "Failures:\n"
 
-        output += results.failures.map do |failure|
-          failure_output = ["  #{Neospec::Color::RED}#{failure.message}#{Neospec::Color::RESET}"]
-          failure.stack.first(5).each do |location|
-            failure_output << "    > #{location}"
+        results.specs.select { |spec| spec.failures.any? }.each do |spec|
+          output << "  #{Neospec::Color::BLUE}== #{spec.description} ==#{Neospec::Color::RESET}\n"
+
+          spec.failures.map do |failure|
+            output << "    #{Neospec::Color::RED}-- #{failure.message} --#{Neospec::Color::RESET}\n"
+            failure.stack.first(5).each do |location|
+              output << "      > #{location}\n"
+            end
+            output << "\n"
           end
+        end
 
-          failure_output.join("\n")
-        end.join("\n\n")
-
-        output
+        output.chomp("\n\n")
       end
 
       def self.formatted_duration(duration)

@@ -63,6 +63,46 @@ end
   end
 end
 
+@unit.describe "Neospec::Spec#run with failures" do
+  called = []
+
+  Given "We create a new Neospec::Spec instance with a failure" do
+    @spec = Neospec::Spec.new(
+      description: "the description",
+      block: -> {
+        expect(true).to_equal(true)
+        called << "start"
+        expect(true).to_equal(false)
+        called << "end"
+      }
+    )
+  end
+
+  When "the spec is run" do
+    @logger = TestLogger.new
+    @spec.run(logger: @logger)
+  end
+
+  Then "only some of the block was run" do
+    expect(called).to_equal(["start"])
+  end
+
+  And "the result was recorded" do
+    expect(@spec.result.finish).to_be_a(Time)
+    expect(@spec.result.expectations).to_equal(2)
+    expect(@spec.result.failures.size).to_equal(1)
+  end
+
+  And "it was logged" do
+    expect(@logger.calls.size).to_equal(3)
+    expect(@logger.calls.map { |call| call[:message] }).to_equal([
+      "the description",
+      "to be equal",
+      "'false' to equal 'true'"
+    ])
+  end
+end
+
 @unit.describe "Neospec::Spec#run with errors" do
   Given "We create a new Neospec::Spec instance" do
     @spec = Neospec::Spec.new(
@@ -72,7 +112,8 @@ end
   end
 
   When "the spec is run" do
-    @spec.run(logger: TestLogger.new)
+    @logger = TestLogger.new
+    @spec.run(logger: @logger)
   end
 
   Then "the spec is considered failed" do
@@ -85,6 +126,14 @@ end
   And "the timing is persisted" do
     expect(@spec.result.start).to_be_a(Time)
     expect(@spec.result.finish).to_be_a(Time)
+  end
+
+  And "it was logged" do
+    expect(@logger.calls.size).to_equal(2)
+    expect(@logger.calls.map { |call| call[:message] }).to_equal([
+      "the description",
+      "raised StandardError"
+    ])
   end
 end
 
@@ -121,8 +170,31 @@ end
     )
   end
 
-  Then "we can call #expect and get an Expector" do
-    expectation = @spec.expect("something")
-    expect(expectation).to_be_a(Neospec::Expector)
+  When "we can call #expect with a value" do
+    @expectation = @spec.expect("something")
+  end
+
+  Then "an expector is setup" do
+    expect(@expectation).to_be_a(Neospec::Expector)
+    expect(@expectation.actual).to_equal("something")
+  end
+
+  When "we can call #expect with a block" do
+    @expectation = @spec.expect do
+      "a block"
+    end
+  end
+
+  Then "an expector is setup" do
+    expect(@expectation).to_be_a(Neospec::Expector)
+    expect(@expectation.actual).to_equal("a block")
+  end
+
+  When "we can call #expect with a block and value" do
+    expect {
+      @spec.expect("something") do
+        "a block"
+      end
+    }.to_raise(ArgumentError, "Can't specify value AND pass a block")
   end
 end

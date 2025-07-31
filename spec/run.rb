@@ -2,6 +2,7 @@ $: << "./lib"
 $: << "./spec"
 
 require "neospec"
+require "support/test_expector"
 require "support/test_logger"
 require "support/test_outputter"
 
@@ -17,6 +18,9 @@ neospec = Neospec.new(
 
 require "neospec_spec"
 require "neospec/expector_spec"
+require "neospec/expector/equality_expectors_spec"
+require "neospec/expector/error_expectors_spec"
+require "neospec/expector/inclusion_expectors_spec"
 require "neospec/logger/basic_spec"
 require "neospec/logger/symbols_spec"
 require "neospec/report/basic_spec"
