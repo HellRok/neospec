@@ -1,20 +1,24 @@
-require "neospec/expector/equality_expectors"
-require "neospec/expector/error_expectors"
-require "neospec/expector/inclusion_expectors"
+# mruby doesn't have 'require' by default and when using it as an mgem with
+# neospec as an mgem it doesn't know the correct load path. Thankfully the
+# build process just includes all our files so we don't need it!
+unless Object.const_defined?("MRUBY_VERSION")
+  require "neospec/expector/equality_expectors"
+  require "neospec/expector/error_expectors"
+  require "neospec/expector/inclusion_expectors"
 
-require "neospec/color"
-require "neospec/expector"
-require "neospec/logger/basic"
-require "neospec/logger/symbols"
-require "neospec/report/basic"
-require "neospec/results"
-require "neospec/runner/basic"
-require "neospec/spec"
-require "neospec/spec/result"
-require "neospec/spec/result/failure"
-require "neospec/spec/result/failure_encountered_error"
-require "neospec/suite"
-require "neospec/version"
+  require "neospec/color"
+  require "neospec/expector"
+  require "neospec/logger/basic"
+  require "neospec/logger/symbols"
+  require "neospec/report/basic"
+  require "neospec/results"
+  require "neospec/runner/basic"
+  require "neospec/spec"
+  require "neospec/spec/result"
+  require "neospec/spec/result/failure"
+  require "neospec/suite"
+  require "neospec/version"
+end
 
 class Neospec
   attr_accessor :logger, :suites, :reporters
