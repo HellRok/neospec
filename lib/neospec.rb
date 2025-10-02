@@ -1,7 +1,7 @@
 # mruby doesn't have 'require' by default and when using it as an mgem with
 # neospec as an mgem it doesn't know the correct load path. Thankfully the
 # build process just includes all our files so we don't need it!
-unless Object.const_defined?("MRUBY_VERSION")
+unless Object.const_defined?(:MRUBY_VERSION)
   require "neospec/expector/equality_expectors"
   require "neospec/expector/error_expectors"
   require "neospec/expector/inclusion_expectors"
