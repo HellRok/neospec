@@ -16,6 +16,7 @@ unless Object.const_defined?("MRUBY_VERSION")
   require "neospec/spec"
   require "neospec/spec/result"
   require "neospec/spec/result/failure"
+  require "neospec/spec/result/failure_encountered_error"
   require "neospec/suite"
   require "neospec/version"
 end
