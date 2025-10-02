@@ -20,6 +20,28 @@
   end
 end
 
+@unit.describe "Neospec::Expector::EqualityExpectors#to_be_empty" do
+  When "#to_be_empty is called with success" do
+    @expect = TestExpector.new(actual: [])
+    @expect.to_be_empty
+  end
+
+  Then "it's recorded" do
+    expect(@expect.success).to_equal("to be empty")
+    expect(@expect.failure).to_be_nil
+  end
+
+  When "#to_be_empty is called with failure" do
+    @expect = TestExpector.new(actual: ["actual"])
+    @expect.to_be_empty
+  end
+
+  Then "it's recorded" do
+    expect(@expect.success).to_be_nil
+    expect(@expect.failure).to_equal("[\"actual\"] to be empty")
+  end
+end
+
 @unit.describe "Neospec::Expector::EqualityExpectors#to_equal" do
   When "#to_equal is called with success" do
     @expect = TestExpector.new(actual: "actual")

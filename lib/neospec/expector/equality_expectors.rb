@@ -9,6 +9,14 @@ class Neospec
         end
       end
 
+      def to_be_empty
+        if actual.empty?
+          succeeded "to be empty"
+        else
+          failed "#{actual} to be empty"
+        end
+      end
+
       def to_equal(expected)
         if actual == expected
           succeeded "to be equal"
