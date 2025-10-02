@@ -117,3 +117,47 @@ end
     expect(@expect.failure).to_equal("String to be a Neospec")
   end
 end
+
+@unit.describe "Neospec::Expector::EqualityExpectors#to_be_true" do
+  When "#to_be_true is called with success" do
+    @expect = TestExpector.new(actual: true)
+    @expect.to_be_true
+  end
+
+  Then "it's recorded" do
+    expect(@expect.success).to_equal("to be true")
+    expect(@expect.failure).to_be_nil
+  end
+
+  When "#to_be_true is called with failure" do
+    @expect = TestExpector.new(actual: false)
+    @expect.to_be_true
+  end
+
+  Then "it's recorded" do
+    expect(@expect.success).to_be_nil
+    expect(@expect.failure).to_equal("'false' to be true")
+  end
+end
+
+@unit.describe "Neospec::Expector::EqualityExpectors#to_be_false" do
+  When "#to_be_true is called with success" do
+    @expect = TestExpector.new(actual: false)
+    @expect.to_be_false
+  end
+
+  Then "it's recorded" do
+    expect(@expect.success).to_equal("to be false")
+    expect(@expect.failure).to_be_nil
+  end
+
+  When "#to_be_false is called with failure" do
+    @expect = TestExpector.new(actual: true)
+    @expect.to_be_false
+  end
+
+  Then "it's recorded" do
+    expect(@expect.success).to_be_nil
+    expect(@expect.failure).to_equal("'true' to be false")
+  end
+end

@@ -40,6 +40,22 @@ class Neospec
           failed "#{actual.class} to be a #{expected}"
         end
       end
+
+      def to_be_true
+        if actual
+          succeeded "to be true"
+        else
+          failed "'#{actual}' to be true"
+        end
+      end
+
+      def to_be_false
+        if actual
+          failed "'#{actual}' to be false"
+        else
+          succeeded "to be false"
+        end
+      end
     end
   end
 end
