@@ -147,6 +147,7 @@ end
         Given("Given") { commands_run << "Given" }
         And("And") { commands_run << "And" }
         But("But") { commands_run << "But" }
+        But("Or") { commands_run << "Or" }
         When("When") { commands_run << "When" }
         Then("Then") { commands_run << "Then" }
       }

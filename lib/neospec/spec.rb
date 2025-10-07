@@ -1,6 +1,6 @@
 class Neospec
   class Spec
-    COMMANDS = %w[Given And But When Then]
+    COMMANDS = %w[Given And But Or When Then]
 
     def initialize(description:, block:)
       # Everything here is prefixed to prevent people's specs overriding it,
