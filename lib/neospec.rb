@@ -34,7 +34,7 @@ class Neospec
     @reporters = reporters
   end
 
-  def run!
+  def run
     @suites.each { |suite|
       suite.run(logger: logger)
     }
@@ -43,6 +43,10 @@ class Neospec
 
     reporters.each { |reporter| reporter.call(results) }
 
-    exit 1 unless results.successful?
+    results.successful?
+  end
+
+  def run!
+    exit 1 unless run
   end
 end
