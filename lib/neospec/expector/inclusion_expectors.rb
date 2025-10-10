@@ -16,6 +16,22 @@ class Neospec
           succeeded "not to include '#{expected}'"
         end
       end
+
+      def to_be_in(expected)
+        if expected.include? actual
+          succeeded "to be in #{expected}"
+        else
+          failed "'#{actual}' to be in #{expected}"
+        end
+      end
+
+      def not_to_be_in(expected)
+        if expected.include? actual
+          failed "'#{actual}' not to be in #{expected}"
+        else
+          succeeded "not to be in #{expected}"
+        end
+      end
     end
   end
 end
