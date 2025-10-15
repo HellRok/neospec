@@ -17,13 +17,13 @@ class Neospec
     end
 
     def location
-      # When run in a Taylor exported application, this is for some reason
-      # `nil`, so let's just return an empty string for now.
+      # When run in a Taylor exported application, this is for nil due to the
+      # code having been run through mrbc (I believe)
       @__stack.first || ""
     end
 
     def file_name
-      location.split(":").first
+      location.split(":").first || ""
     end
 
     def result
