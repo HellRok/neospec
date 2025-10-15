@@ -2,17 +2,26 @@ class Neospec
   class Spec
     COMMANDS = %w[Given And But Or When Then]
 
-    def initialize(description:, block:)
+    def initialize(description:, block:, location: caller.first)
       # Everything here is prefixed to prevent people's specs overriding it,
       # this came to be because I've already accidentally done this a few
       # times.
       @__result = Neospec::Spec::Result.new
       @__description = description
       @__block = block
+      @__location = location
     end
 
     def description
       @__description
+    end
+
+    def location
+      @__location
+    end
+
+    def file_name
+      @__location.split(":").first
     end
 
     def result
