@@ -12,13 +12,13 @@ steps:
           - .buildkite/bin/test-ruby 3.5.0-preview1
       - label: Ruby 3.4
         commands:
-          - .buildkite/bin/test-ruby 3.4.5
+          - .buildkite/bin/test-ruby 3.4.6
       - label: Ruby 3.3
         commands:
-          - .buildkite/bin/test-ruby 3.3.8
+          - .buildkite/bin/test-ruby 3.3.9
       - label: Ruby 3.2
         commands:
-          - .buildkite/bin/test-ruby 3.2.8
+          - .buildkite/bin/test-ruby 3.2.9
       - label: Ruby 3.1
         commands:
           - .buildkite/bin/test-ruby 3.1.7
@@ -36,13 +36,16 @@ steps:
     steps:
       - label: JRuby 10
         commands:
-          - .buildkite/bin/test-ruby jruby-10.0.0.1
+          - .buildkite/bin/test-ruby jruby-10.0.2.0
       - label: JRuby 9
         commands:
-          - .buildkite/bin/test-ruby jruby-9.4.13.0
+          - .buildkite/bin/test-ruby jruby-9.4.14.0
 
   - group: TruffleRuby
     steps:
+      - label: TruffleRuby 25
+        commands:
+          - .buildkite/bin/test-ruby truffleruby-25.0.0
       - label: TruffleRuby 24
         commands:
           - .buildkite/bin/test-ruby truffleruby-24.2.1
@@ -58,6 +61,9 @@ steps:
 
   - group: TruffleRuby+GraalVM
     steps:
+      - label: TruffleRuby+GraalVM 25
+        commands:
+          - .buildkite/bin/test-ruby truffleruby+graalvm-25.0.0
       - label: TruffleRuby+GraalVM 24
         commands:
           - .buildkite/bin/test-ruby truffleruby+graalvm-24.2.1
@@ -70,6 +76,9 @@ steps:
 
   - group: Taylor
     steps:
+      - label: Taylor v0.4.0
+        commands:
+          - .buildkite/bin/test-taylor v0.4.0
       - label: Taylor v0.3.14.1
         commands:
           - .buildkite/bin/test-taylor v0.3.14.1
