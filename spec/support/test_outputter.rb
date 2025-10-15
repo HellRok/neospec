@@ -12,4 +12,7 @@ class TestOutputter
   def write(message)
     @calls << message
   end
+
+  def close
+  end
 end

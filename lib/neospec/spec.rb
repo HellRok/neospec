@@ -2,14 +2,14 @@ class Neospec
   class Spec
     COMMANDS = %w[Given And But Or When Then]
 
-    def initialize(description:, block:, location: caller.first)
+    def initialize(description:, block:, stack: caller)
       # Everything here is prefixed to prevent people's specs overriding it,
       # this came to be because I've already accidentally done this a few
       # times.
       @__result = Neospec::Spec::Result.new
       @__description = description
       @__block = block
-      @__location = location
+      @__stack = stack
     end
 
     def description
@@ -17,11 +17,13 @@ class Neospec
     end
 
     def location
-      @__location
+      # When run in a Taylor exported application, this is for some reason
+      # `nil`, so let's just return an empty string for now.
+      @__stack.first || ""
     end
 
     def file_name
-      @__location.split(":").first
+      location.split(":").first
     end
 
     def result

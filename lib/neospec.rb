@@ -2,6 +2,8 @@
 # neospec as an mgem it doesn't know the correct load path. Thankfully the
 # build process just includes all our files so we don't need it!
 unless Object.const_defined?(:MRUBY_VERSION)
+  require "json" unless Object.const_defined?(:JSON)
+
   require "neospec/expector/equality_expectors"
   require "neospec/expector/error_expectors"
   require "neospec/expector/inclusion_expectors"
@@ -11,6 +13,7 @@ unless Object.const_defined?(:MRUBY_VERSION)
   require "neospec/logger/basic"
   require "neospec/logger/symbols"
   require "neospec/report/basic"
+  require "neospec/report/buildkite_analytics"
   require "neospec/results"
   require "neospec/runner/basic"
   require "neospec/spec"

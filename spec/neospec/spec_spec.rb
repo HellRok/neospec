@@ -3,7 +3,7 @@
     @spec = Neospec::Spec.new(
       description: "the description",
       block: "the block",
-      location: "file_name:line_number"
+      stack: ["file_name:line_number"]
     )
   end
 
@@ -12,7 +12,21 @@
 
     expect(@spec.instance_variable_get(:@__description)).to_equal("the description")
     expect(@spec.instance_variable_get(:@__block)).to_equal("the block")
-    expect(@spec.instance_variable_get(:@__location)).to_equal("file_name:line_number")
+    expect(@spec.instance_variable_get(:@__stack)).to_equal(["file_name:line_number"])
+  end
+end
+
+@unit.describe "Neospec::Spec#location" do
+  Given "We create a new Neospec::Spec instance" do
+    @spec = Neospec::Spec.new(
+      description: "the description",
+      block: "the block",
+      stack: ["file_name:line_number"]
+    )
+  end
+
+  Then "we have a location" do
+    expect(@spec.location).to_equal("file_name:line_number")
   end
 end
 
@@ -21,7 +35,7 @@ end
     @spec = Neospec::Spec.new(
       description: "the description",
       block: "the block",
-      location: "file_name:line_number"
+      stack: ["file_name:line_number"]
     )
   end
 
