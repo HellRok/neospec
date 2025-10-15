@@ -3,6 +3,13 @@ class Neospec
     COMMANDS = %w[Given And But Or When Then]
 
     def initialize(description:, block:, stack: caller)
+      puts "========"
+      puts "CALLER:"
+      puts caller
+      puts "========"
+      puts "STACK:"
+      puts stack
+      puts "========"
       # Everything here is prefixed to prevent people's specs overriding it,
       # this came to be because I've already accidentally done this a few
       # times.
