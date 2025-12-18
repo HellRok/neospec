@@ -44,15 +44,15 @@ class Neospec
         elsif duration < 3600
           minutes = (duration / 60).to_i
           seconds = (duration % 60).to_i
-          "#{minutes} minute#{(minutes == 1) ? "" : "s"} #{seconds} second#{(seconds == 1) ? "" : "s"}"
+          "#{minutes} minute#{"s" unless minutes == 1} #{seconds} second#{"s" unless seconds == 1}"
         elsif duration < 86400
           hours = (duration / 3600).to_i
           minutes = ((duration % 3600) / 60).to_i
-          "#{hours} hour#{(hours == 1) ? "" : "s"} #{minutes} minute#{(minutes == 1) ? "" : "s"}"
+          "#{hours} hour#{"s" unless hours == 1} #{minutes} minute#{"s" unless minutes == 1}"
         else
           days = (duration / 86400).to_i
           hours = ((duration % 86400) / 3600).to_i
-          "#{days} day#{(days == 1) ? "" : "s"} #{hours} hour#{(hours == 1) ? "" : "s"}"
+          "#{days} day#{"s" unless days == 1} #{hours} hour#{"s" unless hours == 1}"
         end
       end
     end

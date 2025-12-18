@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+TAYLOR_VERSION=$1
+PATH="/gems/taylor:$PATH"
+
+if [ ! -f "/gems/taylor/taylor-${TAYLOR_VERSION}" ]; then
+  apt-get update -y
+  apt-get install wget unzip -y
+
+  temp_dir=$(mktemp --directory)
+  pushd $temp_dir
+  TAYLOR_URL=https://github.com/HellRok/Taylor/releases/download/${TAYLOR_VERSION}/taylor-linux-${TAYLOR_VERSION}.zip
+
+  wget -O taylor.zip "${TAYLOR_URL}"
+  unzip taylor.zip
+  mkdir -p /gems/taylor/
+  mv taylor /gems/taylor/taylor-${TAYLOR_VERSION}
+  popd
+fi
+
+taylor-${TAYLOR_VERSION} spec/run.rb

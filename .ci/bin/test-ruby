@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+version=$1
+tmpdir="$(mktemp -d)"
+export BUNDLE_GEMFILE="${tmpdir}/Gemfile-${version}"
+
+cp Gemfile "${BUNDLE_GEMFILE}"
+
+bundle check &> /dev/null || bundle install
+
+bundle exec ruby spec/run.rb

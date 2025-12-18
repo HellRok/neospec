@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-set -euo pipefail
-
-RUBY_VERSION=$1
-
-.buildkite/bin/install-ruby $RUBY_VERSION
-
-ruby spec/run.rb

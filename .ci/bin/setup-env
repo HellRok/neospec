@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+chown -R asdf:asdf /asdf/.asdf
+chown -R asdf:asdf /asdf/.taylor
