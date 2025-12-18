@@ -8,14 +8,24 @@ GEM
     json (2.13.1)
     language_server-protocol (3.17.0.5)
     lint_roller (1.1.0)
+    local_ci (0.0.5)
+      logger
+      pastel
+      rake
+      tty-command
+      tty-cursor
+      tty-screen
+    logger (1.7.0)
     parallel (1.27.0)
     parser (3.3.8.0)
       ast (~> 2.4.1)
       racc
+    pastel (0.8.0)
+      tty-color (~> 0.5)
     prism (1.4.0)
     racc (1.8.1)
     rainbow (3.1.1)
-    rake (13.3.0)
+    rake (13.3.1)
     regexp_parser (2.10.0)
     rubocop (1.75.8)
       json (~> 2.3)
@@ -50,6 +60,11 @@ GEM
       rubocop-performance (~> 1.25.0)
     standardrb (1.0.1)
       standard
+    tty-color (0.6.0)
+    tty-command (0.10.1)
+      pastel (~> 0.8)
+    tty-cursor (0.7.1)
+    tty-screen (0.8.2)
     unicode-display_width (3.1.4)
       unicode-emoji (~> 4.0, >= 4.0.4)
     unicode-emoji (4.0.4)
@@ -59,6 +74,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  local_ci!
   rake!
   standardrb!
 

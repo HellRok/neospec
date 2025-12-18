@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+version=$1
+export ASDF_TOOL_VERSIONS_FILENAME=.tool-versions-${version}
+export MRUBY_CONFIG=/app/.ci/mruby_config.rb
+
+asdf install ruby $version
+
+# Do this after install so we use system ruby for compiling mruby
+export PATH="/asdf/.asdf/shims:$PATH"
+asdf set ruby $version
+
+ruby spec/run.rb

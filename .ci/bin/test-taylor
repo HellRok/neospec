@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+TAYLOR_VERSION=$1
+
+if [ ! -f "/asdf/.taylor/taylor-${TAYLOR_VERSION}" ]; then
+  temp_dir=$(mktemp --directory)
+  pushd $temp_dir
+  TAYLOR_URL=https://github.com/HellRok/Taylor/releases/download/${TAYLOR_VERSION}/taylor-linux-${TAYLOR_VERSION}.zip
+
+  wget -O taylor.zip "${TAYLOR_URL}"
+  unzip taylor.zip
+  mkdir -p /asdf/.taylor/
+  mv taylor /asdf/.taylor/taylor-${TAYLOR_VERSION}
+  popd
+fi
+
+export PATH="/asdf/.taylor:$PATH"
+
+taylor-${TAYLOR_VERSION} spec/run.rb
