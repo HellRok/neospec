@@ -26,4 +26,6 @@ MRuby::Gem::Specification.new("neospec") do |gem|
   gem.license = "MIT"
 
   gem.rbfiles = Dir.glob("#{dir}/lib/**/*.rb")
+
+  gem.add_dependency "mruby-env", ">= 0.0.0"
 end
